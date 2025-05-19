@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ommeoWash/custom_theme/color_palette.dart';
 import 'package:ommeoWash/custom_theme/custom_button.dart';
 import 'package:ommeoWash/custom_theme/custom_widgets.dart';
 import '../../helpers/indicator_value_list.dart';
 
 class SelectCleaner extends StatefulWidget {
-  const SelectCleaner({super.key});
+  final String path;
+  const SelectCleaner({super.key, required this.path});
 
   @override
   State<SelectCleaner> createState() => _SelectCleanerState();
@@ -14,13 +16,14 @@ class SelectCleaner extends StatefulWidget {
 class _SelectCleanerState extends State<SelectCleaner> {
   String selectedCleaner = '';
 
-  final List<Map<String, String>> cleanersList = [
-    // {
-    //   "name": "Samuel JJ",
-    //   "potential": "Hatchbacks",
-    //   "image": "assets/images/samuel.png",
-    //   "price": "₵40",
-    // },
+  final List<Map<String, dynamic>> cleanersList = [
+    {
+      "name": "Any washer (recommended)",
+      "potential":
+          "We will automatically select for you our best mobile car cleaner in your area.",
+      "image": "assets/images/recommend.png",
+      "price": null,
+    },
     {
       "name": "Prince D",
       "potential":
@@ -87,6 +90,8 @@ class _SelectCleanerState extends State<SelectCleaner> {
                                       selectedCleaner = cleaner["name"]!;
                                     });
                                   },
+                                  recommend:
+                                      cleaner["price"] == null ? true : false,
                                 ),
                               ),
                             )
@@ -103,8 +108,7 @@ class _SelectCleanerState extends State<SelectCleaner> {
                 text: "Continue",
                 onPressed: () {
                   if (selectedCleaner.isNotEmpty) {
-                    // Example:
-                    // context.push('/next/route');
+                    context.push(widget.path);
                   }
                 },
               ),
@@ -117,7 +121,8 @@ class _SelectCleanerState extends State<SelectCleaner> {
 }
 
 class CleanerTile extends StatelessWidget {
-  final Map<String, String> cleanerDetails;
+  final bool recommend;
+  final Map<String, dynamic> cleanerDetails;
   final bool isSelected;
   final VoidCallback onSelect;
 
@@ -126,6 +131,7 @@ class CleanerTile extends StatelessWidget {
     required this.cleanerDetails,
     required this.isSelected,
     required this.onSelect,
+    this.recommend = false,
   });
 
   @override
@@ -141,16 +147,25 @@ class CleanerTile extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              child: Image.asset(
-                cleanerDetails['image']!,
-                height: 90,
-                width: 120,
-                fit: BoxFit.cover,
+            Container(
+              // height: 70,
+              // width: 70,
+              decoration: BoxDecoration(
+                color: isSelected ? lightGreen : scaffoldBackground,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(12)),
+                child: Image.asset(
+                  cleanerDetails['image']!,
+                  height: 90,
+                  width: 110,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-            const SizedBox(width: 16),
+
+            const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,7 +175,7 @@ class CleanerTile extends StatelessWidget {
                     cleanerDetails["name"]!,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 16,
+                      fontSize: 13,
                       color: isSelected ? whiteText : null,
                     ),
                   ),
@@ -169,19 +184,24 @@ class CleanerTile extends StatelessWidget {
                     cleanerDetails["potential"]!,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 16,
+                      fontSize: 12,
                       color:
-                          isSelected ? const Color(0xFFD5D2D2) : hintTextColor,
+                          isSelected
+                              ? const Color.fromARGB(255, 233, 229, 229)
+                              : hintTextColor,
                     ),
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
+                    maxLines: 4,
                   ),
                   if (cleanerDetails["price"] != null)
                     Text(
                       '• ${cleanerDetails["price"]}',
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      style: TextStyle(color: isSelected ? whiteText : null),
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: isSelected ? whiteText : null,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                 ],
               ),

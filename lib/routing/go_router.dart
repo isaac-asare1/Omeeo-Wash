@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ommeoWash/screens/find_washer_screens/order_summary_screen.dart';
 import 'package:ommeoWash/screens/find_washer_screens/select_cleaner.dart';
 import 'package:ommeoWash/screens/find_washer_screens/select_date_screen.dart';
 import 'package:ommeoWash/screens/find_washer_screens/select_service_screen.dart';
@@ -32,7 +33,15 @@ final List<GoRoute> serviceFlowRoutes = [
             routes: [
               GoRoute(
                 path: 'cleaner',
-                builder: (context, state) => SelectCleaner(),
+                builder:
+                    (context, state) =>
+                        SelectCleaner(path: "${state.uri.toString()}/summary"),
+                routes: [
+                  GoRoute(
+                    path: 'summary',
+                    builder: (context, state) => OrderSummaryScreen(),
+                  ),
+                ],
               ),
             ],
           ),

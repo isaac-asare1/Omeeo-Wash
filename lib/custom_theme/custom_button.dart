@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'color_palette.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton(
-      {super.key,
-      this.onPressed,
-      this.child,
-      this.backgroundColor,
-      this.padding,
-      this.borderRadius});
+  const CustomButton({
+    super.key,
+    this.onPressed,
+    this.child,
+    this.backgroundColor,
+    this.padding,
+    this.borderRadius,
+  });
   final VoidCallback? onPressed;
   final Widget? child;
   final Color? backgroundColor;
@@ -25,9 +26,7 @@ class CustomButton extends StatelessWidget {
         padding:
             padding ?? const EdgeInsets.symmetric(vertical: 18, horizontal: 24),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(borderRadius ?? 0),
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 0)),
         ),
       ),
       child: child ?? Container(),
@@ -39,10 +38,7 @@ class CustomTextButton extends StatelessWidget {
   const CustomTextButton({
     required this.title,
     this.onPressed,
-    this.padding = const EdgeInsets.symmetric(
-      vertical: 10,
-      horizontal: 10,
-    ),
+    this.padding = const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
     this.width,
     super.key,
   });
@@ -78,22 +74,33 @@ class CustomTextButton extends StatelessWidget {
 
 ////////
 class OmeeoButton extends StatelessWidget {
-  final String text;
+  final bool? allowBorder;
+  final Widget? child;
+  final String? text;
   final Color? backgroundColor;
   final Color? textColor;
   final VoidCallback? onPressed;
 
   const OmeeoButton({
     super.key,
-    required this.text,
+    this.text = "text",
     this.backgroundColor,
     this.textColor,
     this.onPressed,
+    this.child,
+    this.allowBorder = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration:
+          allowBorder!
+              ? BoxDecoration(
+                border: Border.all(color: hintTextColor,width: 2),
+                borderRadius: BorderRadius.all(Radius.circular(8), ),
+              )
+              : null,
       constraints: const BoxConstraints(maxWidth: 400),
       child: SizedBox(
         width: double.infinity,
@@ -108,13 +115,15 @@ class OmeeoButton extends StatelessWidget {
             elevation: 2,
           ),
           onPressed: onPressed,
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-          ),
+          child:
+              child ??
+              Text(
+                text!,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
         ),
       ),
     );

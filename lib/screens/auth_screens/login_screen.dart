@@ -44,29 +44,66 @@ class LoginScreen extends StatelessWidget {
                   obscureText: true,
                 ),
                 const SizedBox(height: 10),
-                GestureDetector(
-                  onTap: () {
-                    // Handle forgot password
-                  },
-                  child: const Text(
-                    "Forgot Password?",
-                    style: TextStyle(color: amber, fontWeight: FontWeight.w500),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: GestureDetector(
+                    onTap: () {
+                      // Handle forgot password
+                    },
+                    child: const Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                        color: amber,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 30),
                 OmeeoButton(text: "Log In", onPressed: () {}),
                 const SizedBox(height: 12),
                 OmeeoButton(
-                  text: "Create Account",
+                  allowBorder: true,
+                  backgroundColor: backgroundColor,
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/google_logo.png',
+                        width: 40,
+                        height: 40,
+                      ),
+                      SizedBox(width: 10),
+                      CustomText(
+                        'Sign in with google',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ],
+                  ),
                   onPressed: () {
-                    context.push('/create_account');
+                    // context.push('/');
                   },
                 ),
-                const SizedBox(height: 20),
-                Text(
-                  "Don’t have an account? Create your account today.",
-                  style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
-                  textAlign: TextAlign.center,
+                const SizedBox(height: 12),
+                OmeeoButton(
+                  allowBorder: true,
+                  backgroundColor: backgroundColor,
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/apple_logo.png',
+                        width: 40,
+                        height: 40,
+                      ),
+                      SizedBox(width: 10),
+                      CustomText(
+                        'Sign in with apple',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ],
+                  ),
+                  onPressed: () {
+                    //context.push('/');
+                  },
                 ),
               ],
             ),

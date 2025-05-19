@@ -5,7 +5,15 @@ import 'package:ommeoWash/custom_theme/color_palette.dart';
 import 'package:ommeoWash/custom_theme/custom_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  final bool? displayLogo;
+  final String? title;
+  final TextStyle? titleStyle;
+  const CustomAppBar({
+    super.key,
+    this.title = "OmeeoWash",
+    this.displayLogo = true,
+    this.titleStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +28,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: Row(
         children: [
-          Image.asset(
-            'assets/images/omeeo_logo.png', // your sponge icon
-            height: 50,
-          ),
-          const SizedBox(width: 8),
-          const Text(
-            'OmeeoWash',
-            style: TextStyle(
-              color: ColorPalette.textColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 22,
+          if (displayLogo!)
+            Image.asset(
+              'assets/images/omeeo_logo.png', // your sponge icon
+              height: 50,
             ),
+          const SizedBox(width: 8),
+          Text(
+            title!,
+            style:
+                titleStyle ??
+                TextStyle(
+                  color: ColorPalette.textColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
           ),
         ],
       ),
