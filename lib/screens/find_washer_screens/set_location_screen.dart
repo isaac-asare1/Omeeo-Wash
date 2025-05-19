@@ -1,9 +1,9 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'package:go_router/go_router.dart';
-import 'package:ommeowash/custom_theme/color_palette.dart';
-import 'package:ommeowash/custom_theme/custom_button.dart';
-import 'package:ommeowash/custom_theme/custom_widgets.dart';
+import 'package:ommeoWash/custom_theme/color_palette.dart';
+import 'package:ommeoWash/custom_theme/custom_button.dart';
+import 'package:ommeoWash/custom_theme/custom_widgets.dart';
 
 import '../../helpers/indicator_value_list.dart';
 
@@ -222,3 +222,143 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import 'package:go_router/go_router.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:geolocator/geolocator.dart';
+
+// import 'package:ommeowash/custom_theme/color_palette.dart';
+// import 'package:ommeowash/custom_theme/custom_button.dart';
+// import 'package:ommeowash/custom_theme/custom_widgets.dart';
+
+// import '../../helpers/indicator_value_list.dart';
+
+// class SetLocationScreen extends StatefulWidget {
+//   const SetLocationScreen({super.key});
+
+//   @override
+//   State<SetLocationScreen> createState() => _SetLocationScreenState();
+// }
+
+
+
+// class _SetLocationScreenState extends State<SetLocationScreen> {
+//   GoogleMapController? _mapController;
+//   LatLng? _pickedLocation;
+//   LatLng _initialCameraPosition = const LatLng(
+//     5.5600,
+//     -0.2050,
+//   ); // Default to Accra
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _determinePosition();
+//   }
+
+//   Future<void> _determinePosition() async {
+//     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+//     LocationPermission permission = await Geolocator.checkPermission();
+
+//     if (!serviceEnabled || permission == LocationPermission.deniedForever) {
+//       return; // handle permission denied
+//     }
+
+//     if (permission == LocationPermission.denied) {
+//       permission = await Geolocator.requestPermission();
+//       if (permission != LocationPermission.whileInUse &&
+//           permission != LocationPermission.always) {
+//         return;
+//       }
+//     }
+
+//     Position position = await Geolocator.getCurrentPosition();
+//     setState(() {
+//       _initialCameraPosition = LatLng(position.latitude, position.longitude);
+//     });
+//   }
+
+//   void _onMapTap(LatLng position) {
+//     setState(() {
+//       _pickedLocation = position;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: scaffoldBackground,
+//       appBar: AppBar(
+//         leading: const BackButton(),
+//         backgroundColor: scaffoldBackground,
+//         elevation: 0,
+//       ),
+//       body: Column(
+//         children: [
+//           LnProgressIndicator(value: indicatorValues[0]),
+//           const Padding(
+//             padding: EdgeInsets.all(16),
+//             child: Text(
+//               "Set Your Location",
+//               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+//             ),
+//           ),
+//           Expanded(
+//             child: GoogleMap(
+//               initialCameraPosition: CameraPosition(
+//                 target: _initialCameraPosition,
+//                 zoom: 14,
+//               ),
+//               onTap: _onMapTap,
+//               onMapCreated: (controller) => _mapController = controller,
+//               markers:
+//                   _pickedLocation != null
+//                       ? {
+//                         Marker(
+//                           markerId: const MarkerId('picked-location'),
+//                           position: _pickedLocation!,
+//                         ),
+//                       }
+//                       : {},
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.all(16.0),
+//             child: OmeeoButton(
+//               backgroundColor:
+//                   _pickedLocation == null ? hintTextColor : lightGreen,
+//               text: 'Continue',
+//               onPressed:
+//                   _pickedLocation == null
+//                       ? null
+//                       : () {
+//                         // Save or pass the picked location
+//                         context.push('/set_location/set_vehicle_reg');
+//                       },
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:ommeowash/custom_theme/color_palette.dart';
-import 'package:ommeowash/custom_theme/custom_button.dart';
-import 'package:ommeowash/custom_theme/custom_widgets.dart';
-import 'package:ommeowash/helpers/indicator_value_list.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ommeoWash/custom_theme/color_palette.dart';
+import 'package:ommeoWash/custom_theme/custom_button.dart';
+import 'package:ommeoWash/custom_theme/custom_widgets.dart';
+import 'package:ommeoWash/helpers/indicator_value_list.dart';
 
 class OptionalExtrasScreen extends StatefulWidget {
-  const OptionalExtrasScreen({super.key});
+  final String path;
+  const OptionalExtrasScreen({super.key, required this.path});
 
   @override
   State<OptionalExtrasScreen> createState() => _OptionalExtrasScreenState();
@@ -16,13 +18,24 @@ class _OptionalExtrasScreenState extends State<OptionalExtrasScreen> {
   Map<String, dynamic> selectedExtra = {};
 
   final List<Map<String, dynamic>> optionalExtras = [
-    {"title": "Mini Valet", "priceRange": "₵40 - ₵75"},
-    {"title": "Full Valet", "priceRange": "₵120 - ₵140"},
-    {"title": "Exterior Valet", "priceRange": "₵40 - ₵50"},
-    {"title": "Interior Deep Clean", "priceRange": "₵80 - ₵85"},
-    {"title": "Soft Top Restoration", "priceRange": "₵85 - ₵90"},
-    {"title": "Interior Valet", "priceRange": "₵30 - ₵60"},
+    {"title": "Pet hair removal", "priceRange": "¢40 - 1hr"},
+    {"title": "Interior stain removal", "priceRange": "¢40 - 1hr"},
+    {"title": "Seats shampoo", "priceRange": "¢30 - 1hr"},
+    {"title": "Floor mats and carpet shampoo", "priceRange": "¢30 - 1hr"},
+    {"title": "Clay bar treatment", "priceRange": "¢30 - 1hr"},
+    {"title": "Iron and tar decontamination", "priceRange": "¢30 - 1hr"},
   ];
+
+  late String routePath;
+
+  @override
+  void initState() {
+    super.initState();
+    routePath =
+        widget.path.contains('vehicle_size')
+            ? "/set_location/set_vehicle_reg/vehicle_size/service_type/extras/date"
+            : "/set_location/set_vehicle_reg/service_type/extras/date";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,32 +67,54 @@ class _OptionalExtrasScreenState extends State<OptionalExtrasScreen> {
                     final extras = optionalExtras[index];
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 12),
-                      child: OptionalExtrasTile(
-                        title: extras['title'],
-                        priceRange: extras['priceRange'],
+                      child: Column(
+                        children: [
+                          OptionalExtrasTile(
+                            title: extras['title'],
+                            priceRange: extras['priceRange'],
 
-                        isSelected: selectedExtrasTitle == extras['title'],
-                        onSelect: () {
-                          setState(() {
-                            selectedExtrasTitle = extras['title'];
-                            selectedExtra = extras;
-                          });
-                        },
+                            isSelected: selectedExtrasTitle == extras['title'],
+                            onSelect: () {
+                              setState(() {
+                                selectedExtrasTitle = extras['title'];
+                                selectedExtra = extras;
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            height: index + 1 == optionalExtras.length ? 50 : 0,
+                          ),
+                        ],
                       ),
                     );
                   },
                 ),
               ),
-              OmeeoButton(
-                backgroundColor:
-                    selectedExtrasTitle.isEmpty ? hintTextColor : lightGreen,
-                text: "Continue",
-                onPressed:
-                    selectedExtrasTitle.isEmpty
-                        ? null
-                        : () {
-                          // Handle next step
-                        },
+              Column(
+                children: [
+                  OmeeoButton(
+                    backgroundColor:
+                        selectedExtrasTitle.isEmpty
+                            ? hintTextColor
+                            : lightGreen,
+                    text: "Continue",
+                    onPressed:
+                        selectedExtrasTitle.isEmpty
+                            ? null
+                            : () {
+                              context.push(routePath);
+                            },
+                  ),
+                  SizedBox(height: 20),
+                  GestureDetector(
+                    onTap: () {
+                      // context.push('location');
+                      context.push(routePath);
+                    },
+                    child: CustomText('Skip', fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(height: 10),
+                ],
               ),
             ],
           ),
@@ -142,7 +177,10 @@ class OptionalExtrasTile extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(Icons.help_outline, color: Colors.grey),
+            Icon(
+              Icons.help_outline,
+              color: isSelected ? whiteText : hintTextColor,
+            ),
           ],
         ),
       ),

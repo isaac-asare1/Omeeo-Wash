@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:ommeowash/custom_theme/color_palette.dart';
+import 'package:ommeoWash/custom_theme/color_palette.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

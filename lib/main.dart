@@ -35,6 +35,7 @@ class _MyWidgetState extends State<MyApp> {
           bodyMedium: TextStyle(color: ColorPalette.textPrimary),
           titleLarge: TextStyle(color: ColorPalette.textPrimary),
         ),
+        colorScheme: ColorScheme.light(primary: lightGreen),
       ),
       routerConfig: router,
     );

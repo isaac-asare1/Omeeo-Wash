@@ -1,8 +1,8 @@
 // ✅ Custom AppBar
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ommeowash/custom_theme/color_palette.dart';
-import 'package:ommeowash/custom_theme/custom_button.dart';
+import 'package:ommeoWash/custom_theme/color_palette.dart';
+import 'package:ommeoWash/custom_theme/custom_button.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key});
@@ -218,31 +218,39 @@ class _CustomToggleQuestionState extends State<CustomToggleQuestion> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.question,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        SizedBox(
+          width: 400,
+          child: Text(
+            widget.question,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            maxLines: 4,
+          ),
         ),
         const SizedBox(height: 8),
-        Row(
-          children: [
-            Expanded(
-              child: OmeeoButton(
-                text: 'Yes',
-                onPressed: () => setState(() => isYes = true),
-                backgroundColor: isYes == true ? lightGreen : backgroundColor,
-                textColor: isYes == true ? whiteText : hintTextColor,
+        Container(
+          constraints: BoxConstraints(maxWidth: 400),
+          child: Row(
+            children: [
+              Expanded(
+                child: OmeeoButton(
+                  text: 'Yes',
+                  onPressed: () => setState(() => isYes = true),
+                  backgroundColor: isYes == true ? lightGreen : backgroundColor,
+                  textColor: isYes == true ? whiteText : hintTextColor,
+                ),
               ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: OmeeoButton(
-                text: 'No',
-                onPressed: () => setState(() => isYes = false),
-                backgroundColor: isYes == false ? lightGreen : backgroundColor,
-                textColor: isYes == false ? whiteText : hintTextColor,
+              const SizedBox(width: 12),
+              Expanded(
+                child: OmeeoButton(
+                  text: 'No',
+                  onPressed: () => setState(() => isYes = false),
+                  backgroundColor:
+                      isYes == false ? lightGreen : backgroundColor,
+                  textColor: isYes == false ? whiteText : hintTextColor,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

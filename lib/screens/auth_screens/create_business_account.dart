@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ommeowash/custom_theme/color_palette.dart';
+import 'package:ommeoWash/custom_theme/color_palette.dart';
 
 import '../../custom_theme/custom_button.dart';
 import '../../custom_theme/custom_widgets.dart';
@@ -130,23 +130,33 @@ class CreateBusinessAccountScreen extends StatelessWidget {
                   "Do you agree to not share or promote your personal contact details to customers on OmeeoWash? *",
             ),
             const SizedBox(height: 10),
-            const Text(
-              "It is against our terms of service to share or promote your personal contact details on OmeeoWash.",
-              style: TextStyle(color: hintTextColor, fontSize: 13),
-            ),
-            const SizedBox(height: 20),
 
-            const Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    "I’d like to receive marketing communications.",
-                    style: TextStyle(color: darkText, fontSize: 14),
-                  ),
+            Center(
+              child: SizedBox(
+                width: 400,
+                child: Column(
+                  children: [
+                    const Text(
+                      "It is against our terms of service to share or promote your personal contact details on OmeeoWash.",
+                      style: TextStyle(color: hintTextColor, fontSize: 13),
+                    ),
+                    const SizedBox(height: 20),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "I’d like to receive marketing communications.",
+                            style: TextStyle(color: darkText, fontSize: 14),
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        CheckCircle(),
+                      ],
+                    ),
+                  ],
                 ),
-                SizedBox(width: 8),
-                CheckCircle(),
-              ],
+              ),
             ),
             const SizedBox(height: 30),
 
@@ -162,7 +172,7 @@ class CreateBusinessAccountScreen extends StatelessWidget {
                     TextSpan(
                       text: "Log In",
                       style: const TextStyle(
-                        color: ColorPalette.amber,
+                        color: amber,
                         fontWeight: FontWeight.bold,
                       ),
                       recognizer:
@@ -202,10 +212,11 @@ class _CheckCircleState extends State<CheckCircle> {
         });
       },
       child: Container(
+        padding: EdgeInsets.all(2),
         width: 25,
         height: 25,
         decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 204, 202, 202),
+          color: Color.fromARGB(255, 234, 232, 232),
           shape: BoxShape.circle,
         ),
         child: Center(
@@ -213,7 +224,7 @@ class _CheckCircleState extends State<CheckCircle> {
             weight: 1000,
             FontAwesomeIcons.check,
             color: isChecked ? lightGreen : Colors.white,
-            size: 22,
+            size: 20,
           ),
         ),
       ),

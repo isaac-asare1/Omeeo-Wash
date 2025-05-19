@@ -39,24 +39,30 @@ class _HomeScreenState extends State<HomeScreen> {
     return displaySplashScreen
         ? SplashScreen()
         : Scaffold(
-          backgroundColor: darkGreen,
+         // backgroundColor: darkGreen,
           resizeToAvoidBottomInset: false,
           body: Stack(
             children: [
-              // Background image
-              CachedNetworkImage(
-                imageUrl: backgroundImageUrl,
+              Image(
+                image: AssetImage('assets/images/background_image.png'),
                 fit: BoxFit.cover,
-                width: double.infinity,
                 height: double.infinity,
-                placeholder:
-                    (context, url) => const Center(
-                      child: SpinKitCircle(color: whiteText, size: 50.0),
-                    ),
-                errorWidget:
-                    (context, url, error) =>
-                        const Center(child: Icon(Icons.error)),
+                width: double.infinity,
               ),
+              // Background image
+              // CachedNetworkImage(
+              //   imageUrl: backgroundImageUrl,
+              //   fit: BoxFit.cover,
+              //   width: double.infinity,
+              //   height: double.infinity,
+              //   placeholder:
+              //       (context, url) => const Center(
+              //         child: SpinKitCircle(color: whiteText, size: 50.0),
+              //       ),
+              //   errorWidget:
+              //       (context, url, error) =>
+              //           const Center(child: Icon(Icons.error)),
+              // ),
 
               // Overlay content
               Container(

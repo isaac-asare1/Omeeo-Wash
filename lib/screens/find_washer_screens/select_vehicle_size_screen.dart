@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ommeowash/custom_theme/color_palette.dart';
-import 'package:ommeowash/custom_theme/custom_button.dart';
-import 'package:ommeowash/custom_theme/custom_widgets.dart';
+import 'package:ommeoWash/custom_theme/color_palette.dart';
+import 'package:ommeoWash/custom_theme/custom_button.dart';
+import 'package:ommeoWash/custom_theme/custom_widgets.dart';
 
 import '../../helpers/indicator_value_list.dart';
 
@@ -48,30 +47,45 @@ class _SelectVehicleSizeScreenState extends State<SelectVehicleSizeScreen> {
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(20),
           constraints: const BoxConstraints(maxWidth: 500),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // Fixed progress indicator
               LnProgressIndicator(value: indicatorValues[1]),
               const SizedBox(height: 24),
-              ...vehicleSizes.map(
-                (vehicle) => Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: VehicleSizeTile(
-                    vehicleDetails: vehicle,
-                    isSelected:
-                        selectedSize.toLowerCase() ==
-                        vehicle["size"]!.toLowerCase(),
-                    onSelect: () {
-                      setState(() {
-                        selectedSize = vehicle["size"]!;
-                      });
-                    },
+
+              // Scrollable list
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children:
+                        vehicleSizes
+                            .map(
+                              (vehicle) => Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: VehicleSizeTile(
+                                  vehicleDetails: vehicle,
+                                  isSelected:
+                                      selectedSize.toLowerCase() ==
+                                      vehicle["size"]!.toLowerCase(),
+                                  onSelect: () {
+                                    setState(() {
+                                      selectedSize = vehicle["size"]!;
+                                    });
+                                  },
+                                ),
+                              ),
+                            )
+                            .toList(),
                   ),
                 ),
               ),
-              const Spacer(),
+
+              const SizedBox(height: 20),
+
+              // Fixed continue button
               OmeeoButton(
                 backgroundColor:
                     selectedSize.trim().isEmpty ? hintTextColor : lightGreen,
@@ -104,6 +118,9 @@ class VehicleSizeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const String smallVpath = 'assets/images/small_vehicle.png';
+    const String mediumVpath = 'assets/images/medium_vehicle.png';
+    const String largeVpath = 'assets/images/large_vehicle.png';
     final size = vehicleDetails["size"]!.toLowerCase();
 
     return GestureDetector(
@@ -119,21 +136,30 @@ class VehicleSizeTile extends StatelessWidget {
           children: [
             Container(
               alignment: Alignment.center,
-              height: 90,
-              width: 90,
+              height: 120,
+              // width: 90,
               padding: const EdgeInsets.all(10),
               decoration: const BoxDecoration(
                 color: scaffoldBackground,
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
-              child: Icon(
+              child: Image.asset(
                 size == "small"
-                    ? FontAwesomeIcons.carSide
+                    ? smallVpath
                     : size == "medium"
-                    ? FontAwesomeIcons.car
-                    : FontAwesomeIcons.vanShuttle,
-                size: 48,
+                    ? mediumVpath
+                    : largeVpath,
+                height: 70,
+                width: 70,
               ),
+              // child: Icon(
+              //   size == "small"
+              //       ? FontAwesomeIcons.carSide
+              //       : size == "medium"
+              //       ? FontAwesomeIcons.car
+              //       : FontAwesomeIcons.vanShuttle,
+              //   size: 48,
+              // ),
             ),
             const SizedBox(width: 16),
             Expanded(
