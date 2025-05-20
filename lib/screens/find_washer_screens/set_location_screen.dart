@@ -39,8 +39,8 @@ class _SetLocationScreenState extends State<SetLocationScreen> {
 
   void _onTextChanged(String value) {
     _locationOptions = null;
-    if (_debounce?.isActive ?? false) _debounce!.cancel();
-    _debounce = Timer(const Duration(milliseconds: 300), () {
+    if (_debounce?.isActive ?? false) _debounce!.cancel(); //if debounce exist, cancel it because you are going to activate a new one in the next line
+    _debounce = Timer(const Duration(milliseconds: 300), () { //set new debounce for 300mili secs
       setState(() {
         _filteredSuggestions =
             _allSuggestions

@@ -6,7 +6,8 @@ import 'package:ommeoWash/custom_theme/custom_button.dart';
 import 'package:ommeoWash/custom_theme/custom_widgets.dart';
 
 class OrderSummaryScreen extends StatefulWidget {
-  const OrderSummaryScreen({super.key});
+  final String path;
+  const OrderSummaryScreen({super.key, required this.path});
 
   @override
   State<OrderSummaryScreen> createState() => _OrderSummaryScreenState();
@@ -114,7 +115,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                 OmeeoButton(
                   text: "Continue",
                   onPressed: () {
-                    submitOrder();
+                    submitOrder(widget.path);
                   },
                 ),
               ],
@@ -125,12 +126,12 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
     );
   }
 
-  void submitOrder() {
+  void submitOrder(String routePath) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder:
           (context) => Container(
@@ -153,7 +154,12 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                     fontWeight: FontWeight.w500,
                   ),
                   const SizedBox(height: 30),
-                  OmeeoButton(text: "Sign Up", onPressed: () {}),
+                  OmeeoButton(
+                    text: "Sign Up",
+                    onPressed: () {
+                      context.push(routePath);
+                    },
+                  ),
                   const SizedBox(height: 12),
                   OmeeoButton(
                     allowBorder: true,
@@ -231,7 +237,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),

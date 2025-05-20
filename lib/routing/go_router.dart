@@ -9,6 +9,7 @@ import 'package:ommeoWash/screens/home_screen.dart';
 
 import '../screens/auth_screens/create_business_account.dart';
 import '../screens/auth_screens/login_screen.dart';
+import '../screens/auth_screens/singup_screen.dart';
 import '../screens/find_washer_screens/optional_extras_screen.dart';
 
 import '../screens/find_washer_screens/select_vehicle_size_screen.dart';
@@ -39,7 +40,16 @@ final List<GoRoute> serviceFlowRoutes = [
                 routes: [
                   GoRoute(
                     path: 'summary',
-                    builder: (context, state) => OrderSummaryScreen(),
+                    builder:
+                        (context, state) => OrderSummaryScreen(
+                          path: "${state.uri.toString()}/signup",
+                        ),
+                    routes: [
+                      GoRoute(
+                        path: 'signup',
+                        builder: (context, state) => SingupScreen(),
+                      ),
+                    ],
                   ),
                 ],
               ),

@@ -428,3 +428,42 @@ class CostSummaryRow extends StatelessWidget {
     );
   }
 }
+
+class CheckCircle extends StatefulWidget {
+  const CheckCircle({super.key});
+
+  @override
+  State<CheckCircle> createState() => _CheckCircleState();
+}
+
+class _CheckCircleState extends State<CheckCircle> {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          isChecked = !isChecked;
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.all(2),
+        width: 25,
+        height: 25,
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 234, 232, 232),
+          shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: Icon(
+            weight: 1000,
+            FontAwesomeIcons.check,
+            color: isChecked ? lightGreen : Colors.white,
+            size: 20,
+          ),
+        ),
+      ),
+    );
+  }
+}
