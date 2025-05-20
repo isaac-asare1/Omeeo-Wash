@@ -320,3 +320,111 @@ class LnProgressIndicator extends StatelessWidget {
     );
   }
 }
+
+//For order summary screen
+class BenefitRow extends StatelessWidget {
+  final String text;
+  const BenefitRow({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Icon(FontAwesomeIcons.check, size: 20, color: darkText),
+        const SizedBox(width: 8),
+        Text(text, style: const TextStyle(fontSize: 16)),
+      ],
+    );
+  }
+}
+
+class SectionHeader extends StatelessWidget {
+  final String title;
+  const SectionHeader({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 24, bottom: 8),
+      child: Text(
+        title,
+        style: const TextStyle(color: hintTextColor, fontSize: 14),
+      ),
+    );
+  }
+}
+
+class SummaryTile extends StatelessWidget {
+  final String title;
+  final String? subtitle;
+  final IconData? icon;
+
+  const SummaryTile({required this.title, this.subtitle, this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          if (icon != null) Icon(icon, size: 20, color: darkText),
+          if (icon != null) const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: const TextStyle(fontSize: 16)),
+                if (subtitle != null)
+                  Text(subtitle!, style: const TextStyle(color: hintTextColor)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CostSummaryRow extends StatelessWidget {
+  final String label;
+  final String value;
+  final bool isBold;
+
+  const CostSummaryRow({
+    required this.label,
+    required this.value,
+    this.isBold = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "• $label",
+            style: TextStyle(
+              fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+              fontSize: 16,
+            ),
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

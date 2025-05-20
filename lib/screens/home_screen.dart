@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return displaySplashScreen
         ? SplashScreen()
         : Scaffold(
-         // backgroundColor: darkGreen,
+          // backgroundColor: darkGreen,
           resizeToAvoidBottomInset: false,
           body: Stack(
             children: [
@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     )
                                     : const SpinKitCircle(
                                       color: lightGreen,
-                                      size: 30.0,
+                                      size: 34.0,
                                     ),
 
                             // : const CircularProgressIndicator(
