@@ -38,3 +38,4 @@ const Color backgroundColor = ColorPalette.backgroundColor;
 const Color amber = ColorPalette.amber;
 const Color scaffoldBackground = ColorPalette.scaffoldBackground;
 const Color lighHintText = Color.fromARGB(255, 213, 210, 210);
+const Color errorColor = ColorPalette.errorColor;

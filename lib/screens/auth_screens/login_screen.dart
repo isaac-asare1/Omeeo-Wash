@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../custom_theme/color_palette.dart';
 import '../../custom_theme/custom_button.dart';
@@ -8,9 +7,14 @@ import '../../custom_theme/custom_widgets.dart';
 // Assume your OmeeoButton and ColorPalette exist
 // import 'your_custom_widgets.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +64,30 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 30),
-                OmeeoButton(text: "Log In", onPressed: () {}),
+                OmeeoButton(
+                  text: "Log In",
+                  onPressed: () {
+                    //                   Future<void> loginUser(String email, String password) async {
+                    //   final url = Uri.parse('http://localhost:3000/login'); // Change to your IP on device
+
+                    //   final response = await http.post(
+                    //     url,
+                    //     headers: {'Content-Type': 'application/json'},
+                    //     body: jsonEncode({'email': email, 'password': password}),
+                    //   );
+
+                    //   if (response.statusCode == 200) {
+                    //     final data = jsonDecode(response.body);
+                    //     final token = data['token'];
+                    //     print('JWT Token: $token');
+
+                    //     // TODO: Store token securely (e.g., with flutter_secure_storage)
+                    //   } else {
+                    //     print('Login failed: ${response.body}');
+                    //   }
+                    // }
+                  },
+                ),
                 const SizedBox(height: 12),
                 OmeeoButton(
                   allowBorder: true,

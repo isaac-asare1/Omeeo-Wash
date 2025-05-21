@@ -136,14 +136,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 isLoading = true;
                               });
                               Future.delayed(
-                                const Duration(milliseconds: 500),
+                                const Duration(milliseconds: 1900),
                                 () {
                                   // ignore: use_build_context_synchronously
                                   context.push('/create_account');
                                 },
                               );
                               Future.delayed(
-                                const Duration(milliseconds: 600),
+                                const Duration(milliseconds: 2000),
                                 () {
                                   setState(() {
                                     isLoading = false;
@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         fontSize: 18,
                                       ),
                                     )
-                                    : const SpinKitCircle(
+                                    : const SpinKitThreeBounce(
                                       color: lightGreen,
                                       size: 34.0,
                                     ),

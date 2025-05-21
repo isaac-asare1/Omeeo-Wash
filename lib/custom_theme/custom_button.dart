@@ -97,8 +97,8 @@ class OmeeoButton extends StatelessWidget {
       decoration:
           allowBorder!
               ? BoxDecoration(
-                border: Border.all(color: hintTextColor,width: 2),
-                borderRadius: BorderRadius.all(Radius.circular(8), ),
+                border: Border.all(color: hintTextColor, width: 2),
+                borderRadius: BorderRadius.all(Radius.circular(8)),
               )
               : null,
       constraints: const BoxConstraints(maxWidth: 400),
@@ -107,7 +107,7 @@ class OmeeoButton extends StatelessWidget {
         height: 50,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: backgroundColor ?? ColorPalette.buttonPrimary,
+            backgroundColor: backgroundColor ?? lightGreen,
             foregroundColor: textColor ?? ColorPalette.textColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),

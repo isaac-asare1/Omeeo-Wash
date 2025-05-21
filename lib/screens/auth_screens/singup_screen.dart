@@ -6,11 +6,9 @@ import '../../custom_theme/color_palette.dart';
 import '../../custom_theme/custom_button.dart';
 import '../../custom_theme/custom_widgets.dart';
 
-// Assume your OmeeoButton and ColorPalette exist
-// import 'your_custom_widgets.dart';
-
 class SingupScreen extends StatelessWidget {
-  const SingupScreen({super.key});
+  final String path;
+  const SingupScreen({super.key, required this.path});
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +25,34 @@ class SingupScreen extends StatelessWidget {
                 const Text(
                   "Create Account",
                   style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                 ),
                 const SizedBox(height: 30),
+                CustomTextField(label: 'First Name *', hintText: 'First Name'),
+                const SizedBox(height: 20),
+                CustomTextField(label: 'Last Name *', hintText: 'Last Name'),
+                const SizedBox(height: 20),
                 CustomTextField(
-                  label: 'Mobile Number *',
-                  hintText: 'Mobile Number',
-                  textInputType: TextInputType.number,
+                  label: 'Email *',
+                  hintText: 'Your email',
+                  textInputType: TextInputType.emailAddress,
+                ),
+                const SizedBox(height: 20),
+                CustomTextField(
+                  label: 'Password *',
+                  hintText: 'Password',
+
+                  obscureText: true,
+                ),
+                const SizedBox(height: 20),
+                CustomTextField(
+                  label: 'Confirm Password *',
+                  hintText: 'Confirm Password',
+
+                  obscureText: true,
                 ),
                 const SizedBox(height: 30),
                 const Row(
@@ -54,7 +70,12 @@ class SingupScreen extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 30),
-                OmeeoButton(text: "Sign Up", onPressed: () {}),
+                OmeeoButton(
+                  text: "Sign Up",
+                  onPressed: () {
+                    context.go(path);
+                  },
+                ),
                 const SizedBox(height: 12),
                 Center(
                   child: RichText(
@@ -101,12 +122,12 @@ class SingupScreen extends StatelessWidget {
                         const TextSpan(
                           text:
                               'By signing up you have read and are agreeable to our ',
-                          style: TextStyle(color: darkText, fontSize: 12),
+                          style: TextStyle(color: darkText, fontSize: 13),
                         ),
                         TextSpan(
                           text: 'Terms of Service ',
                           style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 13,
                             color: amber,
                             fontWeight: FontWeight.bold,
                           ),
@@ -115,7 +136,7 @@ class SingupScreen extends StatelessWidget {
                         TextSpan(
                           text: '& ',
                           style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 13,
                             color: darkText,
                             fontWeight: FontWeight.bold,
                           ),
@@ -123,7 +144,7 @@ class SingupScreen extends StatelessWidget {
                         TextSpan(
                           text: 'Privacy Polycy',
                           style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 13,
                             color: amber,
                             fontWeight: FontWeight.bold,
                           ),
@@ -133,6 +154,7 @@ class SingupScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 30),
               ],
             ),
           ),

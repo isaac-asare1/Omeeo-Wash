@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ommeoWash/screens/find_washer_screens/order_summary_screen.dart';
+import 'package:ommeoWash/screens/find_washer_screens/otp_form_screen.dart';
 import 'package:ommeoWash/screens/find_washer_screens/select_cleaner.dart';
 import 'package:ommeoWash/screens/find_washer_screens/select_date_screen.dart';
 import 'package:ommeoWash/screens/find_washer_screens/select_service_screen.dart';
@@ -47,7 +48,19 @@ final List<GoRoute> serviceFlowRoutes = [
                     routes: [
                       GoRoute(
                         path: 'signup',
-                        builder: (context, state) => SingupScreen(),
+                        builder:
+                            (context, state) => SingupScreen(
+                              path: "${state.uri.toString()}/otp",
+                            ),
+                        routes: [
+                          GoRoute(
+                            path: 'otp',
+                            builder: (context, state) => OtpFormScreen(),
+                            routes: [
+                          
+                        ]
+                      ),
+                        ],
                       ),
                     ],
                   ),
