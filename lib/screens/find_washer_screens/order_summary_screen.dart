@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ommeoWash/custom_theme/color_palette.dart';
 import 'package:ommeoWash/custom_theme/custom_button.dart';
 import 'package:ommeoWash/custom_theme/custom_widgets.dart';
+import 'dart:io' show Platform;
 
 class OrderSummaryScreen extends StatefulWidget {
   final String path;
@@ -72,8 +73,19 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                 ),
 
                 SectionHeader(title: "Subscribe"),
-                SummaryTile(title: "Select frequency"),
+                const CustomDropdown(
+                  bgColor: backgroundColor,
+                  allowBorder: false,
+                  label: null,
+                  dropdownItemsList: [
+                    'Select frequency',
+                    '50 HZ',
+                    '60HZ',
+                    '70 HZ',
+                  ],
+                ),
 
+                //SummaryTile(title: "Select frequency"),
                 SectionHeader(title: "Services"),
                 SummaryTile(title: "Mini Valet", subtitle: "¢40 · 2hr"),
 
@@ -173,7 +185,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         ),
                         SizedBox(width: 10),
                         CustomText(
-                          'Sign in with google',
+                          'Sign up with google',
                           fontWeight: FontWeight.w600,
                         ),
                       ],
@@ -182,29 +194,30 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                       // context.push('/');
                     },
                   ),
-                  const SizedBox(height: 12),
-                  OmeeoButton(
-                    allowBorder: true,
-                    backgroundColor: backgroundColor,
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/images/apple_logo.png',
-                          width: 40,
-                          height: 40,
-                        ),
-                        SizedBox(width: 10),
-                        CustomText(
-                          'Sign in with apple',
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ],
-                    ),
-                    onPressed: () {
-                      //context.push('/');
-                    },
-                  ),
-                  SizedBox(height: 10),
+
+                  // if (Platform == Platform.isIOS)
+                  //   OmeeoButton(
+                  //     allowBorder: true,
+                  //     backgroundColor: backgroundColor,
+                  //     child: Row(
+                  //       children: [
+                  //         Image.asset(
+                  //           'assets/images/apple_logo.png',
+                  //           width: 40,
+                  //           height: 40,
+                  //         ),
+                  //         SizedBox(width: 10),
+                  //         CustomText(
+                  //           'Sign in with apple',
+                  //           fontWeight: FontWeight.w600,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     onPressed: () {
+                  //       //context.push('/');
+                  //     },
+                  //   ),
+                  SizedBox(height: 20),
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(

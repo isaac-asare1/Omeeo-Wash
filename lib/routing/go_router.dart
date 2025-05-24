@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ommeoWash/screens/auth_screens/forgot_password_screen.dart';
+import 'package:ommeoWash/screens/core/core.dart';
 import 'package:ommeoWash/screens/find_washer_screens/order_summary_screen.dart';
 import 'package:ommeoWash/screens/find_washer_screens/otp_form_screen.dart';
 import 'package:ommeoWash/screens/find_washer_screens/select_cleaner.dart';
 import 'package:ommeoWash/screens/find_washer_screens/select_date_screen.dart';
 import 'package:ommeoWash/screens/find_washer_screens/select_service_screen.dart';
 import 'package:ommeoWash/screens/find_washer_screens/set_vehicle_registeration_screen.dart';
-import 'package:ommeoWash/screens/home_screen.dart';
+import 'package:ommeoWash/screens/innitial_screen.dart';
 
 import '../screens/auth_screens/create_business_account.dart';
 import '../screens/auth_screens/login_screen.dart';
@@ -56,10 +58,7 @@ final List<GoRoute> serviceFlowRoutes = [
                           GoRoute(
                             path: 'otp',
                             builder: (context, state) => OtpFormScreen(),
-                            routes: [
-                          
-                        ]
-                      ),
+                          ),
                         ],
                       ),
                     ],
@@ -78,11 +77,17 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const HomeScreen(),
+      builder: (context, state) => const InnitialScreen(),
       routes: [
         GoRoute(
           path: 'login',
           builder: (context, state) => const LoginScreen(),
+          routes: [
+            GoRoute(
+              path: 'reset_password',
+              builder: (context, state) => const ForgotPasswordScreen(),
+            ),
+          ],
         ),
         GoRoute(
           path: 'create_account',
@@ -106,12 +111,14 @@ final GoRouter router = GoRouter(
             ),
           ],
         ),
+        // GoRoute(path: 'home', builder: (context, state) => const HomeScreen()),
       ],
     ),
+    GoRoute(path: '/core', builder: (context, state) => const Core()),
   ],
   errorBuilder: (context, state) {
     debugPrint('Unknown route: ${state.uri.toString()}');
-    return const HomeScreen();
+    return const InnitialScreen();
   },
 );
 
@@ -199,6 +206,7 @@ final GoRouter router = GoRouter(
 
 
 /* 
+add drop down to summary screen;
 context.go('/profile', extra: userObject);
 context.go('/productDetails', extra: productId);
 connected to 192.168.100.107:5555

@@ -1,66 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ommeoWash/custom_theme/color_palette.dart';
 import 'package:ommeoWash/custom_theme/custom_button.dart';
 import 'package:ommeoWash/custom_theme/custom_widgets.dart';
 import 'package:pinput/pinput.dart';
-
-class PinPutForm extends StatelessWidget {
-  final Function verifyValue;
-  final bool verifyPin;
-  const PinPutForm({
-    super.key,
-    required this.verifyValue,
-    required this.verifyPin,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final PinTheme defaultTheme = PinTheme(
-      decoration: BoxDecoration(
-        border: Border.all(color: darkText),
-        borderRadius: const BorderRadius.all(Radius.circular(8)),
-        color: backgroundColor,
-      ),
-      width: 68,
-      height: 64,
-      textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-    );
-    return Pinput(
-      defaultPinTheme: defaultTheme,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      focusedPinTheme: defaultTheme.copyBorderWith(
-        border: Border.all(color: lightGreen, width: 2),
-      ),
-      errorPinTheme: defaultTheme.copyBorderWith(
-        border: Border.all(color: errorColor, width: 2),
-      ),
-      errorBuilder: (errorText, pin) {
-        return Padding(
-          padding: EdgeInsets.only(top: 10),
-          child: CustomText("Incorrect pin", fontSize: 14, color: errorColor),
-        );
-      },
-      pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-      validator: (value) {
-        print('OTP: ${value}');
-        if (value == '3340') {
-          verifyValue();
-          return null;
-        } else {
-          return "Incorrect pin";
-        }
-      },
-      onChanged: (value) {
-        if (value.length > 2 && verifyPin == true) {
-          verifyValue();
-        }
-      },
-      // onSubmitted: (value) {
-      //   print('onSubmit OTP: ${value}');
-      // },
-    );
-  }
-}
 
 class OtpFormScreen extends StatefulWidget {
   const OtpFormScreen({super.key});
@@ -117,11 +60,10 @@ class _OtpFormScreenState extends State<OtpFormScreen> {
                 ),
                 SizedBox(height: 30),
                 OmeeoButton(
-                  // textColor: verifyPin ? whiteText : hintTextColor,
                   backgroundColor: verifyPin ? lightGreen : hintTextColor,
                   text: "Continue",
                   onPressed: () {
-                    //context.go(path);
+                    GoRouter.of(context).go('/core');
                   },
                 ),
                 SizedBox(height: 10),
@@ -137,6 +79,64 @@ class _OtpFormScreenState extends State<OtpFormScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class PinPutForm extends StatelessWidget {
+  final Function verifyValue;
+  final bool verifyPin;
+  const PinPutForm({
+    super.key,
+    required this.verifyValue,
+    required this.verifyPin,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final PinTheme defaultTheme = PinTheme(
+      decoration: BoxDecoration(
+        border: Border.all(color: darkText),
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        color: backgroundColor,
+      ),
+      width: 68,
+      height: 64,
+      textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    );
+    return Pinput(
+      defaultPinTheme: defaultTheme,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      focusedPinTheme: defaultTheme.copyBorderWith(
+        border: Border.all(color: lightGreen, width: 2),
+      ),
+      errorPinTheme: defaultTheme.copyBorderWith(
+        border: Border.all(color: errorColor, width: 2),
+      ),
+      errorBuilder: (errorText, pin) {
+        return Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: CustomText("Incorrect pin", fontSize: 14, color: errorColor),
+        );
+      },
+      pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+      validator: (value) {
+        print('OTP: ${value}');
+        if (value == '3340') {
+          verifyValue();
+          return null;
+        } else {
+          return "Incorrect pin";
+        }
+      },
+      onChanged: (value) {
+        if (value.length > 2 && verifyPin == true) {
+          verifyValue();
+        }
+      },
+      // onSubmitted: (value) {
+      //   print('onSubmit OTP: ${value}');
+      // },
     );
   }
 }

@@ -50,6 +50,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/omeeo_logo.png
+  android: true
+  ios: true
+
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true

@@ -124,6 +124,46 @@ final List<Map<String, dynamic>> detailingServices = [
   },
 ];
 
+final List<Map<String, dynamic>> optionalExtraServices = [
+  {
+    "title": "Pet hair removal",
+    "priceRange": "¢40 - 1hr",
+    "description":
+        "Removal of pet hair from the seats, carpets and floor mats of your vehicle.",
+  },
+  {
+    "title": "Interior stain removal",
+    "priceRange": "¢40 - 1hr",
+    "description":
+        "Removal of stains on the seats, floor mats or carpets of your interior. Perfect for removing spilt milk, vinegar or any substance that leaves a stain on your fabric.",
+  },
+  {
+    "title": "Seats shampoo",
+    "priceRange": "¢30 - 1hr",
+    "description":
+        "Applying shampoo to the seats of your vehicle and using a drill brush to agitate the dirt. The seats are then wet vacuumed and extracted leaving them just like new!",
+  },
+  {
+    "title": "Floor mats and carpet shampoo",
+    "priceRange": "¢30 - 1hr",
+    "description":
+        "Applying shampoo to the floor mats and carpet of your vehicle and using a drill brush to agitate the dirt. The carpets are then wet vacuumed and extracted leaving them just like new!",
+  },
+  {
+    "title": "Clay bar treatment",
+    "priceRange": "¢30 - 1hr",
+    "description":
+        "Applying the use of a clay bar to the exterior of your vehicle to remove paint contaminants such as embedded dirt, sap, and other pollutants. Leaving your vehicle’s surface as smooth as glass.",
+  },
+  {
+    "title": "Iron and tar decontamination",
+    "priceRange": "¢30 - 1hr",
+    "description":
+        "The removal of embedded iron and tar from your paint work. Leaving your vehicle’s paint work smoother than ever. This is usually combined with clay bar treatment.",
+  },
+];
+
+
 
 // const List<String> mouldRemovalFeatures = [
 //   "Mould removal and sanitisation of the interior of your car including:",

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../custom_theme/color_palette.dart';
 import '../../custom_theme/custom_button.dart';
 import '../../custom_theme/custom_widgets.dart';
+import 'dart:io' show Platform;
 
 // Assume your OmeeoButton and ColorPalette exist
 // import 'your_custom_widgets.dart';
@@ -52,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   alignment: Alignment.topLeft,
                   child: GestureDetector(
                     onTap: () {
-                      // Handle forgot password
+                      context.push('/login/reset_password');
                     },
                     child: const Text(
                       "Forgot Password?",
@@ -111,27 +113,28 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const SizedBox(height: 12),
-                OmeeoButton(
-                  allowBorder: true,
-                  backgroundColor: backgroundColor,
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/apple_logo.png',
-                        width: 40,
-                        height: 40,
-                      ),
-                      SizedBox(width: 10),
-                      CustomText(
-                        'Sign in with apple',
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ],
-                  ),
-                  onPressed: () {
-                    //context.push('/');
-                  },
-                ),
+                // if (Platform == Platform.isIOS)
+                //   OmeeoButton(
+                //     allowBorder: true,
+                //     backgroundColor: backgroundColor,
+                //     child: Row(
+                //       children: [
+                //         Image.asset(
+                //           'assets/images/apple_logo.png',
+                //           width: 40,
+                //           height: 40,
+                //         ),
+                //         SizedBox(width: 10),
+                //         CustomText(
+                //           'Sign in with apple',
+                //           fontWeight: FontWeight.w600,
+                //         ),
+                //       ],
+                //     ),
+                //     onPressed: () {
+                //       //context.push('/');
+                //     },
+                //   ),
               ],
             ),
           ),

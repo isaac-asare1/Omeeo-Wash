@@ -4,7 +4,7 @@ import 'package:ommeoWash/custom_theme/color_palette.dart';
 import 'package:ommeoWash/custom_theme/custom_button.dart';
 import 'package:ommeoWash/custom_theme/custom_widgets.dart';
 import 'package:ommeoWash/helpers/indicator_value_list.dart';
-import 'package:ommeoWash/helpers/service_list.dart';
+import 'package:ommeoWash/helpers/dummy_list.dart';
 
 class SelectServiceScreen extends StatefulWidget {
   const SelectServiceScreen({super.key});
@@ -189,65 +189,35 @@ void showServiceDeatals(
       return Dialog(
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  IconButton(
+        child: Container(
+          constraints: BoxConstraints(maxWidth: 400),
+
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
                     icon: const Icon(Icons.close),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Text(description["desTitle"], style: TextStyle(fontSize: 14)),
-              const SizedBox(height: 10),
-              BulletList(items: description["description"]),
-            ],
+                ),
+                Text(
+                  title,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Text(description["desTitle"], style: TextStyle(fontSize: 14)),
+                const SizedBox(height: 10),
+                BulletList(items: description["description"]),
+              ],
+            ),
           ),
         ),
       );
     },
   );
-}
-
-class BulletList extends StatelessWidget {
-  final List<String> items;
-
-  const BulletList({super.key, required this.items});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children:
-          items.map((item) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 6.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text("• ", style: TextStyle(fontSize: 14)),
-                  Expanded(
-                    child: Text(item, style: const TextStyle(fontSize: 14)),
-                  ),
-                ],
-              ),
-            );
-          }).toList(),
-    );
-  }
 }

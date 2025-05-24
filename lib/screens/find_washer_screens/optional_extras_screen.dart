@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ommeoWash/custom_theme/color_palette.dart';
 import 'package:ommeoWash/custom_theme/custom_button.dart';
 import 'package:ommeoWash/custom_theme/custom_widgets.dart';
+import 'package:ommeoWash/helpers/dummy_list.dart';
 import 'package:ommeoWash/helpers/indicator_value_list.dart';
 
 class OptionalExtrasScreen extends StatefulWidget {
@@ -16,15 +17,6 @@ class OptionalExtrasScreen extends StatefulWidget {
 class _OptionalExtrasScreenState extends State<OptionalExtrasScreen> {
   String selectedExtrasTitle = '';
   Map<String, dynamic> selectedExtra = {};
-
-  final List<Map<String, dynamic>> optionalExtras = [
-    {"title": "Pet hair removal", "priceRange": "¢40 - 1hr"},
-    {"title": "Interior stain removal", "priceRange": "¢40 - 1hr"},
-    {"title": "Seats shampoo", "priceRange": "¢30 - 1hr"},
-    {"title": "Floor mats and carpet shampoo", "priceRange": "¢30 - 1hr"},
-    {"title": "Clay bar treatment", "priceRange": "¢30 - 1hr"},
-    {"title": "Iron and tar decontamination", "priceRange": "¢30 - 1hr"},
-  ];
 
   late String routePath;
 
@@ -62,9 +54,9 @@ class _OptionalExtrasScreenState extends State<OptionalExtrasScreen> {
               const SizedBox(height: 16),
               Expanded(
                 child: ListView.builder(
-                  itemCount: optionalExtras.length,
+                  itemCount: optionalExtraServices.length,
                   itemBuilder: (context, index) {
-                    final extras = optionalExtras[index];
+                    final extras = optionalExtraServices[index];
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 12),
                       child: Column(
@@ -72,7 +64,7 @@ class _OptionalExtrasScreenState extends State<OptionalExtrasScreen> {
                           OptionalExtrasTile(
                             title: extras['title'],
                             priceRange: extras['priceRange'],
-
+                            description: extras['description'],
                             isSelected: selectedExtrasTitle == extras['title'],
                             onSelect: () {
                               setState(() {
@@ -82,7 +74,10 @@ class _OptionalExtrasScreenState extends State<OptionalExtrasScreen> {
                             },
                           ),
                           SizedBox(
-                            height: index + 1 == optionalExtras.length ? 50 : 0,
+                            height:
+                                index + 1 == optionalExtraServices.length
+                                    ? 50
+                                    : 0,
                           ),
                         ],
                       ),
@@ -125,9 +120,9 @@ class _OptionalExtrasScreenState extends State<OptionalExtrasScreen> {
 }
 
 class OptionalExtrasTile extends StatelessWidget {
+  final String description;
   final String title;
   final String priceRange;
-
   final bool isSelected;
   final VoidCallback onSelect;
 
@@ -135,9 +130,9 @@ class OptionalExtrasTile extends StatelessWidget {
     super.key,
     required this.title,
     required this.priceRange,
-
     required this.isSelected,
     required this.onSelect,
+    required this.description,
   });
 
   @override
@@ -177,13 +172,56 @@ class OptionalExtrasTile extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(
-              Icons.help_outline,
-              color: isSelected ? whiteText : hintTextColor,
+            GestureDetector(
+              onTap: () {
+                showExtraOptionsDeatals(context, title, description);
+              },
+              child: Icon(
+                Icons.help_outline,
+                color: isSelected ? whiteText : hintTextColor,
+              ),
             ),
           ],
         ),
       ),
     );
   }
+}
+
+void showExtraOptionsDeatals(context, String title, String description) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        backgroundColor: backgroundColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: Container(
+          constraints: BoxConstraints(maxWidth: 400),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ),
+                Text(
+                  title,
+                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Text(description, style: TextStyle(fontSize: 14)),
+                SizedBox(height: 10),
+              ],
+            ),
+          ),
+        ),
+      );
+    },
+  );
 }

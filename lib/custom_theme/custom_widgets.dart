@@ -138,13 +138,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
 }
 
 class CustomDropdown extends StatefulWidget {
+  final bool? allowBorder;
+  final Color? bgColor;
   final List<String> dropdownItemsList;
-  final String label;
+  final String? label;
 
   const CustomDropdown({
     super.key,
     required this.label,
     required this.dropdownItemsList,
+    this.bgColor,
+    this.allowBorder = true,
   });
 
   @override
@@ -166,17 +170,22 @@ class _CustomDropdownState extends State<CustomDropdown> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.label,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
+        if (widget.label != null)
+          Text(
+            widget.label!,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
         const SizedBox(height: 8),
         Container(
           //width: double.infinity,
           constraints: const BoxConstraints(maxWidth: 400),
           padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey.shade400),
+            color: widget.bgColor ?? null,
+            border:
+                widget.allowBorder!
+                    ? Border.all(color: Colors.grey.shade400)
+                    : null,
             borderRadius: BorderRadius.circular(12),
           ),
           child: DropdownButtonHideUnderline(
@@ -199,7 +208,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
                       .toList(),
               value: value,
               onChanged: (newValue) {
-                if (newValue == "Please select") return;
+                if (newValue == widget.dropdownItemsList[0]) return;
                 setState(() {
                   value = newValue!;
                 });
@@ -464,6 +473,105 @@ class _CheckCircleState extends State<CheckCircle> {
           ),
         ),
       ),
+    );
+  }
+}
+
+////
+class BulletList extends StatelessWidget {
+  final List<String> items;
+
+  const BulletList({super.key, required this.items});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children:
+          items.map((item) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 6.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text("• ", style: TextStyle(fontSize: 14)),
+                  Expanded(
+                    child: Text(item, style: const TextStyle(fontSize: 14)),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+    );
+  }
+}
+
+//CORE
+class LocationDropdown extends StatefulWidget {
+  const LocationDropdown({super.key});
+
+  @override
+  State<LocationDropdown> createState() => _LocationDropdownState();
+}
+
+class _LocationDropdownState extends State<LocationDropdown> {
+  final List<String> myLocations = [
+    'Accra GA-184-1234 GH',
+    'Kumasi AK-039-5021 GH',
+    'Takoradi WS-101-5567 GH',
+  ];
+
+  String? selectedLocation = '';
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Icon(FontAwesomeIcons.locationDot, size: 15, color: darkText),
+        const SizedBox(width: 8),
+        Container(
+          constraints: BoxConstraints(maxWidth: 200),
+          child: IntrinsicWidth(
+            child: DropdownButton<String>(
+              isExpanded: true,
+              borderRadius: BorderRadius.circular(8),
+              value:
+                  selectedLocation!.length < 1
+                      ? myLocations[0]
+                      : selectedLocation,
+              dropdownColor: whiteText,
+              icon: Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Icon(
+                  FontAwesomeIcons.chevronDown,
+                  size: 15,
+                  color: darkText,
+                ),
+              ),
+              underline: const SizedBox(),
+              style: const TextStyle(
+                color: darkText,
+                fontWeight: FontWeight.bold,
+              ),
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedLocation = newValue!;
+                });
+              },
+              items:
+                  myLocations.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value,
+                        style: const TextStyle(color: darkText),
+                      ),
+                    );
+                  }).toList(),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

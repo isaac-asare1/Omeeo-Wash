@@ -73,7 +73,7 @@ class SingupScreen extends StatelessWidget {
                 OmeeoButton(
                   text: "Sign Up",
                   onPressed: () {
-                    context.go(path);
+                    context.push(path);
                   },
                 ),
                 const SizedBox(height: 12),
@@ -142,7 +142,7 @@ class SingupScreen extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: 'Privacy Polycy',
+                          text: 'Privacy Policy',
                           style: const TextStyle(
                             fontSize: 13,
                             color: amber,

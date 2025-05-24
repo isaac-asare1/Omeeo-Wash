@@ -1,22 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 
 import '../custom_theme/color_palette.dart';
 import '../custom_theme/custom_button.dart';
-import '../helpers/indicator_value_list.dart';
 import 'splash_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class InnitialScreen extends StatefulWidget {
+  const InnitialScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<InnitialScreen> createState() => _InnitialScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _InnitialScreenState extends State<InnitialScreen> {
   bool isLoading = false;
   bool displaySplashScreen = true;
 

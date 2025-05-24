@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ColorPalette {
   // Brand Green
-  static const Color primaryColor = Color(0xFF2E7D32); // Rich Emerald Green
+  static const Color primaryColor = Color(0xFF88ED8B);
   static const Color primaryVariant = Color(0xFF1B5E20); // Darker Forest Green
 
   // Core neutrals (keep the same)
@@ -34,6 +34,7 @@ const Color darkText = ColorPalette.textPrimary;
 const Color whiteText = ColorPalette.textColor;
 const Color darkGreen = ColorPalette.primaryVariant;
 const Color lightGreen = ColorPalette.buttonPrimary;
+const Color primaryColor = ColorPalette.primaryColor;
 const Color backgroundColor = ColorPalette.backgroundColor;
 const Color amber = ColorPalette.amber;
 const Color scaffoldBackground = ColorPalette.scaffoldBackground;

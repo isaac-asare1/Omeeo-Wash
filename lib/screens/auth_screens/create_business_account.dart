@@ -173,6 +173,7 @@ class CreateBusinessAccountScreen extends StatelessWidget {
                       style: const TextStyle(
                         color: amber,
                         fontWeight: FontWeight.bold,
+                        
                       ),
                       recognizer:
                           TapGestureRecognizer()
