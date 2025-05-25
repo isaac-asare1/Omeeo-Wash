@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ommeoWash/custom_theme/color_palette.dart';
 import 'package:ommeoWash/custom_theme/custom_widgets.dart';
 import 'package:ommeoWash/helpers/dummy_list.dart';
@@ -29,7 +30,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                   children: [
                     Container(
                       padding: EdgeInsets.only(top: 10),
-                      color: primaryColor,
+                      color: lightGreen,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -40,10 +41,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                       ),
                     ),
                     SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: _selectedTab == 0 ? WashingTab() : DetailingTab(),
-                    ),
+                    TabContent(selectedTab: _selectedTab),
+                    SizedBox(height: 40),
                   ],
                 ),
               ),
@@ -75,7 +74,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
           Container(
             height: 2,
             width: 80,
-            color: _selectedTab == index ? darkGreen : primaryColor,
+            color: _selectedTab == index ? darkGreen : lightGreen,
           ),
         ],
       ),
@@ -83,119 +82,159 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   }
 }
 
-class WashingTab extends StatefulWidget {
-  const WashingTab({super.key});
+class TabContent extends StatefulWidget {
+  final int selectedTab;
+  const TabContent({super.key, required this.selectedTab});
 
   @override
-  State<WashingTab> createState() => _WashingTabState();
+  State<TabContent> createState() => _TabContentState();
 }
 
-class _WashingTabState extends State<WashingTab> {
+class _TabContentState extends State<TabContent> {
   String selectedService = '';
+  List<Map<String, dynamic>> get Services =>
+      widget.selectedTab == 0 ? washingServices : detailingServices;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Wrap(
-          crossAxisAlignment: WrapCrossAlignment.start,
-          spacing: 12,
-          runSpacing: 12,
-
-          children:
-              detailingServices.map((service) {
-                return ValetServiceCard(
-                  description: service['description'],
-                  context: context,
-                  title: service['title'],
-                  imagePath: service['image'],
-                  isSelected: selectedService == 'Full Detailing',
-                  onSelect: () {
-                    setState(() {
-                      selectedService = service['title'];
-                    });
-                  },
-                );
-              }).toList(),
-        ),
-        SizedBox(height: 20),
-        Container(
-          padding: const EdgeInsets.only(
-            left: 16,
-            right: 16,
-            top: 8,
-            bottom: 16,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Row(
+        Padding(
+          padding: const EdgeInsets.all(14.0),
+          child: Column(
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Image.asset('assets/images/omeeo_logo.png', height: 25),
-                        const SizedBox(width: 0),
-                        Text(
-                          'OmeeoWash',
-                          style: TextStyle(
-                            color: ColorPalette.textColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.start,
+                spacing: 12,
+                runSpacing: 12,
+
+                children:
+                    Services.map((service) {
+                      return ValetServiceCard(
+                        description: service['description'],
+                        context: context,
+                        title: service['title'],
+                        imagePath: service['image'],
+
+                        onSelect: () {
+                          setState(() {
+                            selectedService = service['title'];
+                          });
+                        },
+                      );
+                    }).toList(),
+              ),
+              SizedBox(height: 20),
+              GestureDetector(
+                onTap: () {
+                  context.push('/service_type');
+                },
+                child: Container(
+                  padding: const EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: 8,
+                    bottom: 16,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  'assets/images/omeeo_logo.png',
+                                  height: 25,
+                                ),
+                                const SizedBox(width: 0),
+                                Text(
+                                  'OmeeoWash',
+                                  style: TextStyle(
+                                    color: ColorPalette.textColor,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              'Get 10% off',
+                              style: TextStyle(
+                                color: lightGreen,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              'Book a service worth ¢60 or more',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 5,
+                                horizontal: 20,
+                              ),
+                              decoration: BoxDecoration(
+                                color: lightGreen,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(
+                                'Eplore Now',
+                                style: TextStyle(
+                                  color: darkText,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    Text(
-                      'Get 10% off',
-                      style: TextStyle(
-                        color: lightGreen,
-                        fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      'Book a service worth £60 or more',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
+                      const Icon(
+                        Icons.local_car_wash,
+                        color: Colors.white,
+                        size: 48,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              const Icon(Icons.local_car_wash, color: Colors.white, size: 48),
+              SizedBox(height: 20),
+
+              Align(
+                alignment: Alignment.topLeft,
+                child: CustomText('Top Washers', fontSize: 16),
+              ),
+              SizedBox(height: 10),
             ],
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 20),
         SizedBox(
-          height: 200,
+          height: 210,
           child: ListView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 12),
-            children: const [
-              WasherCard(
-                name: 'Darren M',
-                priceRange: '¢40 - ¢140',
-                rating: '5',
-                reviewCount: '1',
-                availableDate: '15/05/2025',
-                availability: 'Monday - Friday',
-              ),
-              SizedBox(width: 12),
-              WasherCard(
-                name: 'Muhammad K',
-                priceRange: '¢50 - ¢160',
-                rating: '4.8',
-                reviewCount: '3',
-                availableDate: '15/05/2025',
-                availability: 'Monday,tuesday,wednesday,thursday, friday ',
-              ),
-            ],
+            children:
+                topWashers.map((washer) {
+                  return WasherCard(
+                    name: washer["name"],
+                    priceRange: washer["priceRange"],
+                    rating: washer["rating"],
+                    reviewCount: washer["reviewCount"],
+                    availableDate: washer["availableDate"],
+                    availability: washer["availability"],
+                    isElectricityProvided: washer["isElectricityProvided"],
+                    isWaterProvided: washer["isWaterProvided"],
+                  );
+                }).toList(),
           ),
         ),
-        const SizedBox(height: 16),
       ],
     );
   }
@@ -207,7 +246,6 @@ class ValetServiceCard extends StatelessWidget {
   final String title;
   //final String priceRange;
   final String imagePath;
-  final bool isSelected;
   final VoidCallback onSelect;
   const ValetServiceCard({
     super.key,
@@ -215,21 +253,24 @@ class ValetServiceCard extends StatelessWidget {
     required this.context,
     required this.title,
     required this.imagePath,
-    required this.isSelected,
     required this.onSelect,
   });
 
   @override
   Widget build(BuildContext context) {
+    final double deviceWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: onSelect,
       child: IntrinsicWidth(
         child: Container(
           padding: EdgeInsets.only(right: 5, bottom: 5, left: 5),
-          height: 125,
-          width: 106,
+          height: 130,
+          width:
+              deviceWidth > 350
+                  ? MediaQuery.of(context).size.width * 0.28
+                  : 120,
           decoration: BoxDecoration(
-            color: isSelected ? lightGreen : backgroundColor,
+            color: backgroundColor,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
@@ -244,10 +285,7 @@ class ValetServiceCard extends StatelessWidget {
                     onTap: () {
                       showServiceDeatals(context, title, description);
                     },
-                    child: Icon(
-                      Icons.help_outline,
-                      color: isSelected ? whiteText : hintTextColor,
-                    ),
+                    child: Icon(Icons.help_outline, color: hintTextColor),
                   ),
                 ),
               ),
@@ -255,11 +293,7 @@ class ValetServiceCard extends StatelessWidget {
               SizedBox(height: 4),
               Text(
                 title,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: isSelected ? whiteText : null,
-                ),
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
                 textAlign: TextAlign.center,
                 softWrap: true,
                 maxLines: 3,
@@ -279,8 +313,8 @@ class CustomHomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
-      color: lightGreen,
+      padding: const EdgeInsets.only(top: 20, left: 16, right: 16, bottom: 16),
+      color: darkGreen,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -288,14 +322,19 @@ class CustomHomeAppBar extends StatelessWidget {
             children: [
               LocationDropdown(),
               Spacer(),
-              Icon(FontAwesomeIcons.plus, color: whiteText, size: 17),
+              Icon(
+                FontAwesomeIcons.plus,
+                color: whiteText,
+                size: 20,
+                weight: 700,
+              ),
             ],
           ),
           const SizedBox(height: 16),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(
-              color: primaryColor,
+              color: whiteText,
               // border: Border.all(
               //   color: const Color.fromARGB(255, 252, 232, 232),
               // ),
@@ -346,12 +385,10 @@ class ServiceCard extends StatelessWidget {
 }
 
 class WasherCard extends StatelessWidget {
-  final String name,
-      priceRange,
-      rating,
-      reviewCount,
-      availableDate,
-      availability;
+  final List<String> availability;
+  final String name, priceRange, rating, reviewCount, availableDate;
+
+  final bool isWaterProvided, isElectricityProvided;
 
   const WasherCard({
     super.key,
@@ -361,12 +398,16 @@ class WasherCard extends StatelessWidget {
     required this.reviewCount,
     required this.availableDate,
     required this.availability,
+    this.isWaterProvided = false,
+    this.isElectricityProvided = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 330,
+      margin: EdgeInsets.only(right: 10),
+
+      constraints: BoxConstraints(maxWidth: 450, minWidth: 280),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: backgroundColor,
@@ -375,65 +416,111 @@ class WasherCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: "•",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: amber,
-                    fontSize: 20,
-                  ),
-                ),
-                TextSpan(
-                  text: priceRange,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: darkText,
-                  ),
-                ),
-              ],
-            ),
-          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Icon(Icons.star, color: Colors.orange, size: 16),
-              Text('$rating  |  See $reviewCount review'),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Text(
+                        "• ",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+
+                          color: lightGreen,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    TextSpan(
+                      text: priceRange,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: darkText,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  const Icon(Icons.star, color: Colors.orange, size: 14),
+                  CustomText(
+                    '$rating  |  See $reviewCount review',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ],
+              ),
             ],
           ),
           const SizedBox(height: 4),
           Text(
             name,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          Text('Available $availableDate'),
-          const SizedBox(height: 4),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: Colors.orange[100],
-              borderRadius: BorderRadius.circular(8),
-              border: null,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              overflow: TextOverflow.ellipsis,
             ),
-            child: Text(availability),
           ),
+          CustomText(
+            'Available $availableDate',
+            fontSize: 12,
+            color: hintTextColor,
+          ),
+          const SizedBox(height: 14),
+          AvailabilityDisplay(selectedDays: availability),
           const SizedBox(height: 4),
           Row(
             children: [
-              Chip(
-                label: const Text('Water '),
-                backgroundColor: Colors.blue[50],
-              ),
+              isWaterProvided
+                  ? CustomChipWidget(
+                    message: 'Water provided',
+                    icon: FontAwesomeIcons.handHoldingDroplet,
+                  )
+                  : CustomChipWidget(
+                    message: 'Water Not provided',
+                    icon: FontAwesomeIcons.droplet,
+                  ),
               const SizedBox(width: 4),
-              Chip(
-                label: const Text('Electricity '),
-                backgroundColor: Colors.yellow[50],
-              ),
+              isElectricityProvided
+                  ? CustomChipWidget(
+                    message: 'Electricity provided',
+                    icon: FontAwesomeIcons.boltLightning,
+                  )
+                  : CustomChipWidget(
+                    message: 'Electricity Not provided',
+                    icon: FontAwesomeIcons.boltLightning,
+                  ),
             ],
           ),
         ],
       ),
+    );
+  }
+}
+
+class CustomChipWidget extends StatelessWidget {
+  final String message;
+  final IconData icon;
+  const CustomChipWidget({
+    super.key,
+    required this.message,
+    required this.icon,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Chip(
+      avatar: Icon(icon, size: 12, color: Colors.blue),
+      padding: EdgeInsets.zero,
+      side: BorderSide.none,
+      label: Text(message),
+      backgroundColor: scaffoldBackground,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      labelStyle: TextStyle(fontSize: 12),
     );
   }
 }
@@ -446,47 +533,6 @@ class DetailingTab extends StatelessWidget {
     return const Text('detailing tab');
   }
 }
-
-final List<Map<String, dynamic>> topWashers = [
-  {
-    'name': 'Darren M.',
-    'priceRange': '£40 - £140',
-    'rating': '5',
-    'reviewCount': '1',
-    'availableDate': '15/05/2025',
-    'availability': ['Saturday', 'Sunday', "Wednesday"],
-    'isWaterProvided': false,
-    'isElectricityProvided': true,
-  },
-  {
-    'name': 'Muhammad K.',
-    'priceRange': '£40 - £140',
-    'rating': '4.8',
-    'reviewCount': '5',
-    'availableDate': '15/05/2025',
-    'availability': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    'isWaterProvided': false,
-    'isElectricityProvided': false,
-  },
-  {
-    'name': 'Muhammad K.',
-    'priceRange': '£40 - £140',
-    'rating': '4.8',
-    'reviewCount': null,
-    'availableDate': '15/05/2025',
-    'availability': [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ],
-    'isWaterProvided': true,
-    'isElectricityProvided': true,
-  },
-];
 
 class AvailabilityDisplay extends StatelessWidget {
   final List<String> selectedDays;
@@ -526,9 +572,16 @@ class AvailabilityDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      formatAvailability(selectedDays),
-      style: TextStyle(fontSize: 16),
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      color: lightGreen,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+        child: Text(
+          formatAvailability(selectedDays),
+          style: TextStyle(fontSize: 12, color: whiteText),
+        ),
+      ),
     );
   }
 }

@@ -41,9 +41,9 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
               const SizedBox(height: 16),
               Expanded(
                 child: ListView.builder(
-                  itemCount: detailingServices.length,
+                  itemCount: washingServices.length,
                   itemBuilder: (context, index) {
-                    final service = detailingServices[index];
+                    final service = washingServices[index];
                     final priceRange =
                         "¢${service['minPrice']} - ¢${service['maxPrice']}";
                     return Padding(
@@ -65,7 +65,7 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
                           ),
                           SizedBox(
                             height:
-                                index + 1 == detailingServices.length ? 50 : 0,
+                                index + 1 == washingServices.length ? 50 : 0,
                           ),
                         ],
                       ),

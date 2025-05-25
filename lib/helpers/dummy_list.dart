@@ -1,4 +1,4 @@
-final List<Map<String, dynamic>> detailingServices = [
+final List<Map<String, dynamic>> washingServices = [
   {
     "title": "Mini Detailing",
     "minPrice": 40,
@@ -123,6 +123,93 @@ final List<Map<String, dynamic>> detailingServices = [
     },
   },
 ];
+final List<Map<String, dynamic>> detailingServices = [
+  {
+    "title": "Mini Detailing",
+    "minPrice": 40,
+    "maxPrice": 75,
+    "image": 'assets/images/mini_valet.png',
+    "description": {
+      "desTitle":
+          "A thorough clean of the exterior and interior of your vehicle. This typically includes:",
+      "description": [
+        "Wheels and arches pre washed and cleaned",
+        "Door Jams cleaned",
+        "Bodywork Pre washed",
+        "Bodywork Snow foamed and washed",
+        "Badges and intricate areas cleaned and rinsed",
+        "Full rinse with rinse aid",
+        "Dried using state of the art products",
+        "Glass cleaned inside and out",
+        "Interior dusted and Hoovered",
+        "Long lasting Tyre dressing",
+        "High Quality wax applied",
+        "Luxury Air freshener",
+      ],
+    },
+  },
+  {
+    "title": "Full Detailing",
+    "minPrice": 120,
+    "maxPrice": 140,
+    "image": 'assets/images/full_valet.png',
+    "description": {
+      "desTitle":
+          "A deep clean of both the interior and exterior of your vehicle. This service includes all of the features of a Mini valet, plus the following:",
+      "description": [
+        "Iron Fall out remover, Tar remover applied to paintwork",
+        "Carpets and Mats steamed, shampooed and wet vacuumed",
+        "Seats shampooed and wet vacuumed or Leathers deep cleaned and conditioned",
+        "All plastics and leather upholstery are steam cleaned, scrubbed and dressed",
+        "Headliner steam cleaned and dried",
+        "Air vents deep cleaned",
+        "Pedals deep cleaned",
+      ],
+    },
+  },
+  {
+    "title": "Exterior Detailing",
+    "minPrice": 40,
+    "maxPrice": 50,
+    "image": 'assets/images/exterior_valet.png',
+    "description": {
+      "desTitle":
+          "A basic valet of just the exterior of your vehicle including:",
+      "description": [
+        "Wheels and arches cleaned",
+        "Door Jams cleaned",
+        "Bodywork Snow foamed and rinsed",
+        "Contact wash",
+        "Badges and intricate areas cleaned and rinsed",
+        "Exterior thoroughly rinsed",
+        "Exterior dried",
+        "Glass cleaned inside and out",
+      ],
+    },
+  },
+  {
+    "title": "Interior Detailing",
+    "minPrice": 30,
+    "maxPrice": 60,
+    "image": 'assets/images/interior_valet.png',
+    "description": {
+      "desTitle": "A valet of just the interior of your vehicle including:",
+      "description": [
+        "Rubbish cleared",
+        "Thorough hoovering",
+        "Mats professionally cleaned",
+        "Steering wheel cleaned",
+        "Dashboard cleaned",
+        "Infotainment screen cleaned",
+        "Seatbelts and fasteners cleaned",
+        "Seats vacuumed or Leathers cleaned",
+        "All plastics and leather upholstery are cleaned and dressed (where accessible)",
+        "Headliner wiped down",
+        "Air freshener applied",
+      ],
+    },
+  },
+];
 
 final List<Map<String, dynamic>> optionalExtraServices = [
   {
@@ -160,6 +247,47 @@ final List<Map<String, dynamic>> optionalExtraServices = [
     "priceRange": "¢30 - 1hr",
     "description":
         "The removal of embedded iron and tar from your paint work. Leaving your vehicle’s paint work smoother than ever. This is usually combined with clay bar treatment.",
+  },
+];
+
+final List<Map<String, dynamic>> topWashers = [
+  {
+    'name': 'Darren M.',
+    'priceRange': '¢40 - ¢140',
+    'rating': '5',
+    'reviewCount': '1',
+    'availableDate': '15/05/2025',
+    'availability': ['Saturday', 'Sunday', "Wednesday"],
+    'isWaterProvided': false,
+    'isElectricityProvided': true,
+  },
+  {
+    'name': 'Mr John Fifi Attah',
+    'priceRange': '¢40 - ¢140',
+    'rating': '4',
+    'reviewCount': '5',
+    'availableDate': '15/05/2025',
+    'availability': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    'isWaterProvided': false,
+    'isElectricityProvided': false,
+  },
+  {
+    'name': 'Muhammad K.',
+    'priceRange': '¢40 - ¢140',
+    'rating': '4.8',
+    'reviewCount': "",
+    'availableDate': '15/05/2025',
+    'availability': [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ],
+    'isWaterProvided': true,
+    'isElectricityProvided': true,
   },
 ];
 

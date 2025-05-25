@@ -527,7 +527,7 @@ class _LocationDropdownState extends State<LocationDropdown> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Icon(FontAwesomeIcons.locationDot, size: 15, color: darkText),
+        const Icon(FontAwesomeIcons.locationDot, size: 15, color: whiteText),
         const SizedBox(width: 8),
         Container(
           constraints: BoxConstraints(maxWidth: 200),
@@ -539,18 +539,18 @@ class _LocationDropdownState extends State<LocationDropdown> {
                   selectedLocation!.length < 1
                       ? myLocations[0]
                       : selectedLocation,
-              dropdownColor: whiteText,
+              dropdownColor: const Color.fromARGB(220, 0, 0, 0),
               icon: Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Icon(
                   FontAwesomeIcons.chevronDown,
                   size: 15,
-                  color: darkText,
+                  color: whiteText,
                 ),
               ),
               underline: const SizedBox(),
               style: const TextStyle(
-                color: darkText,
+                color: whiteText,
                 fontWeight: FontWeight.bold,
               ),
               onChanged: (String? newValue) {
@@ -564,7 +564,7 @@ class _LocationDropdownState extends State<LocationDropdown> {
                       value: value,
                       child: Text(
                         value,
-                        style: const TextStyle(color: darkText),
+                        style: const TextStyle(color: whiteText),
                       ),
                     );
                   }).toList(),

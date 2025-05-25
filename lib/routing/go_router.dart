@@ -77,7 +77,8 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const InnitialScreen(),
+      //builder: (context, state) => const InnitialScreen(),
+      builder: (context, state) => const Core(),
       routes: [
         GoRoute(
           path: 'login',
@@ -114,7 +115,16 @@ final GoRouter router = GoRouter(
         // GoRoute(path: 'home', builder: (context, state) => const HomeScreen()),
       ],
     ),
-    GoRoute(path: '/core', builder: (context, state) => const Core()),
+    GoRoute(
+      path: '/core',
+      builder: (context, state) => const Core(),
+      routes: [
+        GoRoute(
+          path: 'service_type',
+          builder: (context, state) => const SelectServiceScreen(),
+        ),
+      ],
+    ),
   ],
   errorBuilder: (context, state) {
     debugPrint('Unknown route: ${state.uri.toString()}');
