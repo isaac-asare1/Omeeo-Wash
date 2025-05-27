@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:ommeoWash/custom_theme/color_palette.dart';
 import 'package:ommeoWash/custom_theme/custom_button.dart';
 import 'package:ommeoWash/custom_theme/custom_widgets.dart';
-import 'dart:io' show Platform;
 
 class OrderSummaryScreen extends StatefulWidget {
   final String path;

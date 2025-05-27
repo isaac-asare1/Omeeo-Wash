@@ -279,6 +279,7 @@ class _CustomToggleQuestionState extends State<CustomToggleQuestion> {
 
 class CustomText extends StatelessWidget {
   final String text;
+  final TextDecoration? decoration;
   final double? fontSize;
   final FontWeight? fontWeight;
   final Color? color;
@@ -295,6 +296,7 @@ class CustomText extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.overflow,
     this.maxLines,
+    this.decoration,
   });
 
   @override
@@ -308,6 +310,7 @@ class CustomText extends StatelessWidget {
         fontSize: fontSize,
         fontWeight: fontWeight,
         color: color ?? darkText,
+        decoration: decoration,
       ),
     );
   }
@@ -572,6 +575,35 @@ class _LocationDropdownState extends State<LocationDropdown> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class CustomChipWidget extends StatelessWidget {
+  final String message;
+  final IconData icon;
+  const CustomChipWidget({
+    super.key,
+    required this.message,
+    required this.icon,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: scaffoldBackground,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Icon(icon, size: 10, color: Colors.blue),
+          SizedBox(width: 2),
+          Text(message, style: TextStyle(fontSize: 10)),
+        ],
+      ),
     );
   }
 }

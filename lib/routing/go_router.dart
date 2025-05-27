@@ -77,8 +77,8 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      //builder: (context, state) => const InnitialScreen(),
-      builder: (context, state) => const Core(),
+      builder: (context, state) => const InnitialScreen(),
+      // builder: (context, state) => const Core(),
       routes: [
         GoRoute(
           path: 'login',
@@ -118,12 +118,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/core',
       builder: (context, state) => const Core(),
-      routes: [
-        GoRoute(
-          path: 'service_type',
-          builder: (context, state) => const SelectServiceScreen(),
-        ),
-      ],
+      routes: serviceFlowRoutes,
     ),
   ],
   errorBuilder: (context, state) {
@@ -229,5 +224,4 @@ adb devices
 adb shell ip route
 adb tcpip 5555
 adb connect 192.168.100.107
-
  */

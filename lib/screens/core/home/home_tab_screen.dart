@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ommeoWash/custom_theme/color_palette.dart';
 import 'package:ommeoWash/custom_theme/custom_widgets.dart';
+import 'package:ommeoWash/custom_theme/font_size.dart';
 import 'package:ommeoWash/helpers/dummy_list.dart';
 import 'package:ommeoWash/screens/find_washer_screens/select_service_screen.dart';
 
@@ -19,35 +20,36 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
-        constraints: BoxConstraints(maxWidth: 500),
-        child: Column(
-          children: [
-            CustomHomeAppBar(),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(top: 10),
-                      color: lightGreen,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _buildTabItem('Washing', 0),
-                          SizedBox(width: 30),
-                          _buildTabItem('Detailing', 1),
-                        ],
+      body: SafeArea(
+        child: Container(
+          constraints: BoxConstraints(maxWidth: 500),
+          child: Column(
+            children: [
+              CustomHomeAppBar(),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        color: lightGreen,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _buildTabItem('Washing', 0),
+                            SizedBox(width: 30),
+                            _buildTabItem('Detailing', 1),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    TabContent(selectedTab: _selectedTab),
-                    SizedBox(height: 40),
-                  ],
+                      SizedBox(height: 10),
+                      TabContent(selectedTab: _selectedTab),
+                      SizedBox(height: 40),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -67,7 +69,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
               title,
               color: darkText,
               fontSize: 14,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 5),
@@ -114,19 +116,13 @@ class _TabContentState extends State<TabContent> {
                         context: context,
                         title: service['title'],
                         imagePath: service['image'],
-
-                        onSelect: () {
-                          setState(() {
-                            selectedService = service['title'];
-                          });
-                        },
                       );
                     }).toList(),
               ),
               SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
-                  context.push('/service_type');
+                  context.go('/core/service_type');
                 },
                 child: Container(
                   padding: const EdgeInsets.only(
@@ -204,19 +200,17 @@ class _TabContentState extends State<TabContent> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-
-              Align(
-                alignment: Alignment.topLeft,
-                child: CustomText('Top Washers', fontSize: 16),
-              ),
-              SizedBox(height: 10),
             ],
           ),
         ),
-        const SizedBox(height: 20),
+        SizedBox(height: 10),
+        Align(
+          alignment: Alignment.topLeft,
+          child: CustomText('Top Washers', fontSize: 16),
+        ),
+        SizedBox(height: 5),
         SizedBox(
-          height: 210,
+          height: 170,
           child: ListView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -226,6 +220,7 @@ class _TabContentState extends State<TabContent> {
                     name: washer["name"],
                     priceRange: washer["priceRange"],
                     rating: washer["rating"],
+                    score: washer["score"],
                     reviewCount: washer["reviewCount"],
                     availableDate: washer["availableDate"],
                     availability: washer["availability"],
@@ -246,21 +241,23 @@ class ValetServiceCard extends StatelessWidget {
   final String title;
   //final String priceRange;
   final String imagePath;
-  final VoidCallback onSelect;
+
   const ValetServiceCard({
     super.key,
     required this.description,
     required this.context,
     required this.title,
     required this.imagePath,
-    required this.onSelect,
   });
 
   @override
   Widget build(BuildContext context) {
     final double deviceWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: onSelect,
+      onTap: () {
+        //debugPrint('des: ${description}, title: ${title}');
+        context.go('/core/service_type/extras');
+      },
       child: IntrinsicWidth(
         child: Container(
           padding: EdgeInsets.only(right: 5, bottom: 5, left: 5),
@@ -356,37 +353,9 @@ class CustomHomeAppBar extends StatelessWidget {
   }
 }
 
-class ServiceCard extends StatelessWidget {
-  final String title;
-  final IconData icon;
-
-  const ServiceCard({super.key, required this.title, required this.icon});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 110,
-      height: 100,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: 32),
-          const SizedBox(height: 8),
-          Text(title, textAlign: TextAlign.center),
-        ],
-      ),
-    );
-  }
-}
-
-class WasherCard extends StatelessWidget {
+class WasherCard extends StatefulWidget {
   final List<String> availability;
-  final String name, priceRange, rating, reviewCount, availableDate;
+  final String name, priceRange, rating, reviewCount, availableDate, score;
 
   final bool isWaterProvided, isElectricityProvided;
 
@@ -400,137 +369,177 @@ class WasherCard extends StatelessWidget {
     required this.availability,
     this.isWaterProvided = false,
     this.isElectricityProvided = false,
+    required this.score,
   });
 
   @override
+  State<WasherCard> createState() => _WasherCardState();
+}
+
+class _WasherCardState extends State<WasherCard> {
+  bool showContainer = false;
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(right: 10),
-
-      constraints: BoxConstraints(maxWidth: 450, minWidth: 280),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return IntrinsicHeight(
+      child: Stack(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              RichText(
-                text: TextSpan(
+          Container(
+            margin: EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    WidgetSpan(
-                      alignment: PlaceholderAlignment.middle,
-                      child: Text(
-                        "• ",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-
-                          color: lightGreen,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    TextSpan(
-                      text: priceRange,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: darkText,
-                        fontSize: 16,
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: Text(
+                              "• ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: lightGreen,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                          TextSpan(
+                            text: widget.priceRange,
+                            style: TextStyle(
+                              color: darkText,
+                              fontSize: FontSizes.md,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-              ),
-              Row(
-                children: [
-                  const Icon(Icons.star, color: Colors.orange, size: 14),
-                  CustomText(
-                    '$rating  |  See $reviewCount review',
+
+                const SizedBox(height: 4),
+                Text(
+                  widget.name,
+                  style: const TextStyle(
                     fontSize: 12,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.bold,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Text(
-            name,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              overflow: TextOverflow.ellipsis,
+                ),
+                CustomText(
+                  'Available ${widget.availableDate}',
+                  fontSize: 10,
+                  color: hintTextColor,
+                ),
+                const SizedBox(height: 14),
+                AvailabilityDisplay(selectedDays: widget.availability),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    widget.isWaterProvided
+                        ? CustomChipWidget(
+                          message: 'Water provided',
+                          icon: FontAwesomeIcons.droplet,
+                        )
+                        : CustomChipWidget(
+                          message: 'Water Not provided',
+                          icon: FontAwesomeIcons.droplet,
+                        ),
+                    const SizedBox(width: 4),
+                    widget.isElectricityProvided
+                        ? CustomChipWidget(
+                          message: 'Electricity provided',
+                          icon: FontAwesomeIcons.boltLightning,
+                        )
+                        : CustomChipWidget(
+                          message: 'Electricity Not provided',
+                          icon: FontAwesomeIcons.boltLightning,
+                        ),
+                  ],
+                ),
+              ],
             ),
           ),
-          CustomText(
-            'Available $availableDate',
-            fontSize: 12,
-            color: hintTextColor,
-          ),
-          const SizedBox(height: 14),
-          AvailabilityDisplay(selectedDays: availability),
-          const SizedBox(height: 4),
-          Row(
-            children: [
-              isWaterProvided
-                  ? CustomChipWidget(
-                    message: 'Water provided',
-                    icon: FontAwesomeIcons.handHoldingDroplet,
-                  )
-                  : CustomChipWidget(
-                    message: 'Water Not provided',
-                    icon: FontAwesomeIcons.droplet,
+
+          Positioned(
+            top: 15,
+            right: 20,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                if (!widget.reviewCount.trim().isEmpty)
+                  Row(
+                    children: [
+                      Icon(Icons.star, color: Colors.orange, size: 10),
+
+                      CustomText(
+                        '${widget.rating}  |  ',
+                        fontSize: FontSizes.xs,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      CustomText(
+                        'See ${widget.reviewCount} review',
+                        fontSize: FontSizes.xs,
+                        fontWeight: FontWeight.w700,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ],
                   ),
-              const SizedBox(width: 4),
-              isElectricityProvided
-                  ? CustomChipWidget(
-                    message: 'Electricity provided',
-                    icon: FontAwesomeIcons.boltLightning,
-                  )
-                  : CustomChipWidget(
-                    message: 'Electricity Not provided',
-                    icon: FontAwesomeIcons.boltLightning,
+                SizedBox(height: 30),
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        showContainer = true;
+                      });
+                    },
+                    child: Container(
+                      width: 35,
+                      height: 35,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: backgroundColor,
+                        border: Border.all(color: lightGreen, width: 2),
+                      ),
+                      child: Center(
+                        child: Text(
+                          widget.score,
+                          style: TextStyle(
+                            fontSize: FontSizes.sm,
+                            fontWeight: FontWeight.bold,
+                            color: darkText,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-            ],
+                ),
+              ],
+            ),
           ),
+          showContainer
+              ? Positioned(
+                top: 30,
+                right: 15,
+                child: CompletionScoreCard(
+                  score: widget.score,
+                  callback: () {
+                    setState(() {
+                      showContainer = false;
+                    });
+                  },
+                ),
+              )
+              : SizedBox(),
         ],
       ),
     );
-  }
-}
-
-class CustomChipWidget extends StatelessWidget {
-  final String message;
-  final IconData icon;
-  const CustomChipWidget({
-    super.key,
-    required this.message,
-    required this.icon,
-  });
-  @override
-  Widget build(BuildContext context) {
-    return Chip(
-      avatar: Icon(icon, size: 12, color: Colors.blue),
-      padding: EdgeInsets.zero,
-      side: BorderSide.none,
-      label: Text(message),
-      backgroundColor: scaffoldBackground,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      labelStyle: TextStyle(fontSize: 12),
-    );
-  }
-}
-
-class DetailingTab extends StatelessWidget {
-  const DetailingTab({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text('detailing tab');
   }
 }
 
@@ -579,8 +588,64 @@ class AvailabilityDisplay extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
         child: Text(
           formatAvailability(selectedDays),
-          style: TextStyle(fontSize: 12, color: whiteText),
+          style: TextStyle(fontSize: FontSizes.xs, color: whiteText),
         ),
+      ),
+    );
+  }
+}
+
+class CompletionScoreCard extends StatelessWidget {
+  final VoidCallback callback;
+  final String score;
+  const CompletionScoreCard({
+    super.key,
+    required this.score,
+    required this.callback,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 200,
+      height: 100,
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: const Color.fromARGB(255, 226, 224, 224),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CustomText(
+                'Completion score',
+                fontSize: FontSizes.sm,
+                fontWeight: FontWeight.bold,
+              ),
+              GestureDetector(
+                onTap: callback,
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: backgroundColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(FontAwesomeIcons.x, grade: 2, size: FontSizes.sm),
+                ),
+              ),
+            ],
+          ),
+          CustomText(
+            'This operator has delivered ${score}% or more of their bookings and is highly reliable.',
+            fontSize: FontSizes.xs,
+            fontWeight: FontWeight.w500,
+          ),
+        ],
       ),
     );
   }

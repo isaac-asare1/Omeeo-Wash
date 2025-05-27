@@ -51,7 +51,7 @@ dev_dependencies:
     sdk: flutter
 
 flutter_native_splash:
-  color: "#ffffff"
+  color: "#4CAF50"
   image: assets/images/omeeo_logo.png
   android: true
   ios: true
