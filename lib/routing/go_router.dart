@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ommeoWash/routing/routes.dart';
 import 'package:ommeoWash/screens/auth_screens/forgot_password_screen.dart';
 import 'package:ommeoWash/screens/core/core.dart';
 import 'package:ommeoWash/screens/find_washer_screens/order_summary_screen.dart';
@@ -77,8 +78,8 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const InnitialScreen(),
-      // builder: (context, state) => const Core(),
+      //builder: (context, state) => const InnitialScreen(),
+      builder: (context, state) => const Core(),
       routes: [
         GoRoute(
           path: 'login',
@@ -118,7 +119,11 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/core',
       builder: (context, state) => const Core(),
-      routes: serviceFlowRoutes,
+      routes: [
+        ...serviceFlowRoutes,
+        ...extraServicesFlowRoutes,
+        ...serviceFlowRouteAfterChoosingWahser,
+      ],
     ),
   ],
   errorBuilder: (context, state) {
@@ -126,8 +131,6 @@ final GoRouter router = GoRouter(
     return const InnitialScreen();
   },
 );
-
-
 
 
 
@@ -184,13 +187,13 @@ final GoRouter router = GoRouter(
 // );
 
 
-                        // GoRoute(
-                        //   path: 'extras',
-                        //   builder: (context, state) {
-                        //     //final String? previousPagePath = state.extra as String?;
-                        //     return const OptionalExtrasScreen();
-                        //   },
-                        // ),
+      // GoRoute(
+      //   path: 'extras',
+      //   builder: (context, state) {
+      //     //final String? previousPagePath = state.extra as String?;
+      //     return const OptionalExtrasScreen();
+      //   },
+      // ),
       //       routes: [
       // GoRoute(
       //   redirect: (context, state) {

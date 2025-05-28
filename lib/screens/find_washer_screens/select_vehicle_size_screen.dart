@@ -88,7 +88,7 @@ class _SelectVehicleSizeScreenState extends State<SelectVehicleSizeScreen> {
               // Fixed continue button
               OmeeoButton(
                 backgroundColor:
-                    selectedSize.trim().isEmpty ? hintTextColor : lightGreen,
+                    selectedSize.trim().isEmpty ? hintTextColor : lightPurple,
                 text: "Continue",
                 onPressed: () {
                   context.push(
@@ -127,7 +127,7 @@ class VehicleSizeTile extends StatelessWidget {
       onTap: onSelect,
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected ? lightGreen : backgroundColor,
+          color: isSelected ? lightPurple : backgroundColor,
           borderRadius: BorderRadius.circular(16),
         ),
         padding: const EdgeInsets.all(10),

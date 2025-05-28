@@ -104,7 +104,9 @@ class _SelectCleanerState extends State<SelectCleaner> {
 
               OmeeoButton(
                 backgroundColor:
-                    selectedCleaner.trim().isEmpty ? hintTextColor : lightGreen,
+                    selectedCleaner.trim().isEmpty
+                        ? hintTextColor
+                        : lightPurple,
                 text: "Continue",
                 onPressed: () {
                   if (selectedCleaner.isNotEmpty) {
@@ -140,7 +142,7 @@ class CleanerTile extends StatelessWidget {
       onTap: onSelect,
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected ? lightGreen : backgroundColor,
+          color: isSelected ? lightPurple : backgroundColor,
           borderRadius: BorderRadius.circular(16),
         ),
         padding: const EdgeInsets.all(10),
@@ -151,7 +153,7 @@ class CleanerTile extends StatelessWidget {
               // height: 70,
               // width: 70,
               decoration: BoxDecoration(
-                color: isSelected ? lightGreen : scaffoldBackground,
+                color: isSelected ? lightPurple : scaffoldBackground,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: ClipRRect(

@@ -5,6 +5,7 @@ import 'package:ommeoWash/custom_theme/color_palette.dart';
 import 'package:ommeoWash/custom_theme/custom_widgets.dart';
 import 'package:ommeoWash/custom_theme/font_size.dart';
 import 'package:ommeoWash/helpers/dummy_list.dart';
+import 'package:ommeoWash/screens/core/home/dialogues.dart';
 import 'package:ommeoWash/screens/find_washer_screens/select_service_screen.dart';
 
 class HomeTabScreen extends StatefulWidget {
@@ -20,36 +21,35 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Container(
-          constraints: BoxConstraints(maxWidth: 500),
-          child: Column(
-            children: [
-              CustomHomeAppBar(),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        color: lightGreen,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            _buildTabItem('Washing', 0),
-                            SizedBox(width: 30),
-                            _buildTabItem('Detailing', 1),
-                          ],
-                        ),
+      body: Container(
+        constraints: BoxConstraints(maxWidth: 500),
+        child: Column(
+          children: [
+            CustomHomeAppBar(),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(top: 5),
+                      color: lightPurple,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildTabItem('Washing', 0),
+                          SizedBox(width: 30),
+                          _buildTabItem('Detailing', 1),
+                        ],
                       ),
-                      SizedBox(height: 10),
-                      TabContent(selectedTab: _selectedTab),
-                      SizedBox(height: 40),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 10),
+                    TabContent(selectedTab: _selectedTab),
+                    SizedBox(height: 40),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -68,15 +68,15 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
             child: CustomText(
               title,
               color: darkText,
-              fontSize: 14,
+              fontSize: FontSizes.md,
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 5),
           Container(
             height: 2,
-            width: 80,
-            color: _selectedTab == index ? darkGreen : lightGreen,
+            width: 100,
+            color: _selectedTab == index ? darkPurple : null,
           ),
         ],
       ),
@@ -122,7 +122,7 @@ class _TabContentState extends State<TabContent> {
               SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
-                  context.go('/core/service_type');
+                  context.push('/core/service_type');
                 },
                 child: Container(
                   padding: const EdgeInsets.only(
@@ -161,7 +161,7 @@ class _TabContentState extends State<TabContent> {
                             Text(
                               'Get 10% off',
                               style: TextStyle(
-                                color: lightGreen,
+                                color: lightPurple,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -177,7 +177,7 @@ class _TabContentState extends State<TabContent> {
                                 horizontal: 20,
                               ),
                               decoration: BoxDecoration(
-                                color: lightGreen,
+                                color: lightPurple,
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: Text(
@@ -204,11 +204,14 @@ class _TabContentState extends State<TabContent> {
           ),
         ),
         SizedBox(height: 10),
-        Align(
-          alignment: Alignment.topLeft,
-          child: CustomText('Top Washers', fontSize: 16),
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: CustomText('Top Washers', fontSize: FontSizes.md),
+          ),
         ),
-        SizedBox(height: 5),
+        SizedBox(height: 10),
         SizedBox(
           height: 170,
           child: ListView(
@@ -216,16 +219,19 @@ class _TabContentState extends State<TabContent> {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             children:
                 topWashers.map((washer) {
+                  final String reviewLength =
+                      washer["reviews"].length.toString();
                   return WasherCard(
                     name: washer["name"],
                     priceRange: washer["priceRange"],
                     rating: washer["rating"],
                     score: washer["score"],
-                    reviewCount: washer["reviewCount"],
+                    reviewCount: reviewLength,
                     availableDate: washer["availableDate"],
                     availability: washer["availability"],
                     isElectricityProvided: washer["isElectricityProvided"],
                     isWaterProvided: washer["isWaterProvided"],
+                    reviews: washer["reviews"],
                   );
                 }).toList(),
           ),
@@ -255,8 +261,7 @@ class ValetServiceCard extends StatelessWidget {
     final double deviceWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
-        //debugPrint('des: ${description}, title: ${title}');
-        context.go('/core/service_type/extras');
+        context.push('/core/extras');
       },
       child: IntrinsicWidth(
         child: Container(
@@ -282,7 +287,7 @@ class ValetServiceCard extends StatelessWidget {
                     onTap: () {
                       showServiceDeatals(context, title, description);
                     },
-                    child: Icon(Icons.help_outline, color: hintTextColor),
+                    child: SeeDetailButton(),
                   ),
                 ),
               ),
@@ -310,8 +315,8 @@ class CustomHomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 20, left: 16, right: 16, bottom: 16),
-      color: darkGreen,
+      padding: const EdgeInsets.only(top: 30, left: 16, right: 16, bottom: 16),
+      color: darkPurple,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -332,9 +337,6 @@ class CustomHomeAppBar extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(
               color: whiteText,
-              // border: Border.all(
-              //   color: const Color.fromARGB(255, 252, 232, 232),
-              // ),
               borderRadius: BorderRadius.circular(12),
             ),
             child: TextField(
@@ -356,8 +358,8 @@ class CustomHomeAppBar extends StatelessWidget {
 class WasherCard extends StatefulWidget {
   final List<String> availability;
   final String name, priceRange, rating, reviewCount, availableDate, score;
-
   final bool isWaterProvided, isElectricityProvided;
+  final List reviews;
 
   const WasherCard({
     super.key,
@@ -370,6 +372,7 @@ class WasherCard extends StatefulWidget {
     this.isWaterProvided = false,
     this.isElectricityProvided = false,
     required this.score,
+    required this.reviews,
   });
 
   @override
@@ -380,169 +383,257 @@ class _WasherCardState extends State<WasherCard> {
   bool showContainer = false;
   @override
   Widget build(BuildContext context) {
-    return IntrinsicHeight(
-      child: Stack(
-        children: [
-          Container(
-            margin: EdgeInsets.only(left: 10),
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: BorderRadius.circular(12),
+    return GestureDetector(
+      onTap: () {
+        context.push("/core/services");
+      },
+      child: IntrinsicHeight(
+        child: Stack(
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              decoration: BoxDecoration(
+                color: backgroundColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: scaffoldBackground,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              WidgetSpan(
+                                alignment: PlaceholderAlignment.middle,
+                                child: Text(
+                                  "• ",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: darkPurple,
+                                    fontSize: FontSizes.lg,
+                                  ),
+                                ),
+                              ),
+                              TextSpan(
+                                text: widget.priceRange,
+                                style: TextStyle(
+                                  color: darkText,
+                                  fontSize: FontSizes.md,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 4),
+                  Text(
+                    widget.name,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  CustomText(
+                    'Available ${widget.availableDate}',
+                    fontSize: 10,
+                    color: hintTextColor,
+                  ),
+                  const SizedBox(height: 14),
+                  AvailabilityDisplay(selectedDays: widget.availability),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      widget.isWaterProvided
+                          ? CustomChipWidget(
+                            message: 'Water provided',
+                            icon: FontAwesomeIcons.droplet,
+                          )
+                          : CustomChipWidget(
+                            message: 'Water Not provided',
+                            icon: FontAwesomeIcons.droplet,
+                          ),
+                      const SizedBox(width: 4),
+                      widget.isElectricityProvided
+                          ? CustomChipWidget(
+                            message: 'Electricity provided',
+                            icon: FontAwesomeIcons.boltLightning,
+                          )
+                          : CustomChipWidget(
+                            message: 'Electricity Not provided',
+                            icon: FontAwesomeIcons.boltLightning,
+                          ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          WidgetSpan(
-                            alignment: PlaceholderAlignment.middle,
+
+            Positioned(
+              top: 15,
+              right: 20,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  if (int.parse(widget.reviewCount) > 0)
+                    Row(
+                      children: [
+                        Icon(Icons.star, color: Colors.orange, size: 14),
+
+                        CustomText(
+                          '${widget.rating}  |  ',
+                          fontSize: FontSizes.md,
+                          fontWeight: FontWeight.w500,
+                          color: hintTextColor,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Dialogues().submitOrder(
+                              context,
+                              widget.reviews,
+                              overallRating: widget.rating,
+                              washersName: widget.name,
+                            );
+                          },
+                          child: CustomText(
+                            'See ${widget.reviewCount} review',
+                            fontSize: FontSizes.md,
+                            fontWeight: FontWeight.w500,
+                            decoration: TextDecoration.underline,
+                            color: hintTextColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  SizedBox(height: 30),
+                  if (int.parse(widget.reviewCount) > 0)
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          showCompletionScore(context, widget.score);
+                        },
+                        child: Container(
+                          width: 35,
+                          height: 35,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: backgroundColor,
+                            border: Border.all(
+                              color:
+                                  int.parse(widget.score) < 90
+                                      ? amber
+                                      : primaryColor,
+                              width: 2,
+                            ),
+                          ),
+                          child: Center(
                             child: Text(
-                              "• ",
+                              widget.score,
                               style: TextStyle(
+                                fontSize: FontSizes.sm,
                                 fontWeight: FontWeight.bold,
-                                color: lightGreen,
-                                fontSize: 16,
+                                color: darkText,
                               ),
                             ),
                           ),
-                          TextSpan(
-                            text: widget.priceRange,
-                            style: TextStyle(
-                              color: darkText,
-                              fontSize: FontSizes.md,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void showCompletionScore(BuildContext context, String score) {
+    final int washerScore = int.parse(score);
+    showDialog(
+      barrierColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext context) {
+        return Stack(
+          children: [
+            Positioned(
+              right: 100,
+              bottom: 120,
+              child: Material(
+                elevation: 8,
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.transparent,
+                child: Container(
+                  width: 200,
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 226, 224, 224),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomText(
+                            'Completion score',
+                            fontSize: FontSizes.sm,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: backgroundColor,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                FontAwesomeIcons.x,
+                                grade: 2,
+                                size: FontSizes.sm,
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 4),
-                Text(
-                  widget.name,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                CustomText(
-                  'Available ${widget.availableDate}',
-                  fontSize: 10,
-                  color: hintTextColor,
-                ),
-                const SizedBox(height: 14),
-                AvailabilityDisplay(selectedDays: widget.availability),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    widget.isWaterProvided
-                        ? CustomChipWidget(
-                          message: 'Water provided',
-                          icon: FontAwesomeIcons.droplet,
-                        )
-                        : CustomChipWidget(
-                          message: 'Water Not provided',
-                          icon: FontAwesomeIcons.droplet,
-                        ),
-                    const SizedBox(width: 4),
-                    widget.isElectricityProvided
-                        ? CustomChipWidget(
-                          message: 'Electricity provided',
-                          icon: FontAwesomeIcons.boltLightning,
-                        )
-                        : CustomChipWidget(
-                          message: 'Electricity Not provided',
-                          icon: FontAwesomeIcons.boltLightning,
-                        ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-
-          Positioned(
-            top: 15,
-            right: 20,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                if (!widget.reviewCount.trim().isEmpty)
-                  Row(
-                    children: [
-                      Icon(Icons.star, color: Colors.orange, size: 10),
-
+                      SizedBox(height: 10),
                       CustomText(
-                        '${widget.rating}  |  ',
+                        washerScore < 90
+                            ? "The operator has fulfilled most of their bookings. However, it’s advisable to message them before booking to confirm their availability."
+                            : "This operator has successfully completed 90% or more of their bookings and is considered highly reliable.",
                         fontSize: FontSizes.xs,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      CustomText(
-                        'See ${widget.reviewCount} review',
-                        fontSize: FontSizes.xs,
-                        fontWeight: FontWeight.w700,
-                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.w500,
                       ),
                     ],
                   ),
-                SizedBox(height: 30),
-                Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        showContainer = true;
-                      });
-                    },
-                    child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: backgroundColor,
-                        border: Border.all(color: lightGreen, width: 2),
-                      ),
-                      child: Center(
-                        child: Text(
-                          widget.score,
-                          style: TextStyle(
-                            fontSize: FontSizes.sm,
-                            fontWeight: FontWeight.bold,
-                            color: darkText,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
                 ),
-              ],
+              ),
             ),
-          ),
-          showContainer
-              ? Positioned(
-                top: 30,
-                right: 15,
-                child: CompletionScoreCard(
-                  score: widget.score,
-                  callback: () {
-                    setState(() {
-                      showContainer = false;
-                    });
-                  },
-                ),
-              )
-              : SizedBox(),
-        ],
-      ),
+          ],
+        );
+      },
     );
   }
 }
 
+//Availability display for formationg days
 class AvailabilityDisplay extends StatelessWidget {
   final List<String> selectedDays;
 
@@ -583,69 +674,13 @@ class AvailabilityDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-      color: lightGreen,
+      color: darkPurple,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
         child: Text(
           formatAvailability(selectedDays),
           style: TextStyle(fontSize: FontSizes.xs, color: whiteText),
         ),
-      ),
-    );
-  }
-}
-
-class CompletionScoreCard extends StatelessWidget {
-  final VoidCallback callback;
-  final String score;
-  const CompletionScoreCard({
-    super.key,
-    required this.score,
-    required this.callback,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 100,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: const Color.fromARGB(255, 226, 224, 224),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomText(
-                'Completion score',
-                fontSize: FontSizes.sm,
-                fontWeight: FontWeight.bold,
-              ),
-              GestureDetector(
-                onTap: callback,
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: backgroundColor,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(FontAwesomeIcons.x, grade: 2, size: FontSizes.sm),
-                ),
-              ),
-            ],
-          ),
-          CustomText(
-            'This operator has delivered ${score}% or more of their bookings and is highly reliable.',
-            fontSize: FontSizes.xs,
-            fontWeight: FontWeight.w500,
-          ),
-        ],
       ),
     );
   }

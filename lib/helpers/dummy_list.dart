@@ -255,29 +255,68 @@ final List<Map<String, dynamic>> topWashers = [
     'name': 'Darren M.',
     'priceRange': '¢40 - ¢140',
     'rating': '5',
-    'reviewCount': '1',
-    "score": '89',
+    "score": '83',
     'availableDate': '15/06/2025',
     'availability': ['Saturday', 'Sunday', "Wednesday"],
     'isWaterProvided': false,
     'isElectricityProvided': true,
+    "reviews": [
+      {
+        "name": "James",
+        "date": "13/05/2025",
+        "message":
+            "Fast service, very professional. Would definitely recommend!",
+        "rating": "4",
+      },
+      {
+        "name": "Andy",
+        "date": "12/05/2025",
+        "message": "Excellent job! My car looks brand new again. 👌",
+        "rating": "5",
+      },
+      {
+        "name": "Linda",
+        "date": "10/05/2025",
+        "message": "Great experience, friendly staff. Will use again!",
+        "rating": "4",
+      },
+      {
+        "name": "Kwame",
+        "date": "09/05/2025",
+        "message": "Not bad, but took longer than expected.",
+        "rating": "3",
+      },
+    ],
   },
   {
     'name': 'Mr John Fifi Attah',
     'priceRange': '¢40 - ¢140',
     'rating': '4',
-    'reviewCount': '5',
-    "score": '80',
+    "score": '90',
     'availableDate': '15/06/2025',
     'availability': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
     'isWaterProvided': false,
     'isElectricityProvided': false,
+    "reviews": [
+      {
+        "name": "Andy",
+        "date": "13/05/2025",
+        "message":
+            "Came to place of work, very friendly, very efficient, absolutely amazing job done, would advise anyone to use , thanks Harrison 👏🏼👍🏼",
+        "rating": "5",
+      },
+      {
+        "name": "Aisha",
+        "date": "08/05/2025",
+        "message": "Top-notch service with amazing attention to detail! ⭐",
+        "rating": "5",
+      },
+    ],
   },
   {
     'name': 'Muhammad K.',
     'priceRange': '¢40 - ¢140',
     'rating': '4.8',
-    'reviewCount': "",
     "score": '90',
     'availableDate': '15/06/2025',
     'availability': [
@@ -291,6 +330,7 @@ final List<Map<String, dynamic>> topWashers = [
     ],
     'isWaterProvided': true,
     'isElectricityProvided': true,
+    "reviews": [],
   },
   {
     'name': 'James K. Appiah Maanu',
@@ -302,6 +342,7 @@ final List<Map<String, dynamic>> topWashers = [
     'availability': ['Monday', 'Tuesday', 'Wednesday', 'Thursday'],
     'isWaterProvided': false,
     'isElectricityProvided': true,
+    "reviews": [],
   },
 ];
 

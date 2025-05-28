@@ -38,34 +38,41 @@ class _CoreState extends State<Core> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedPageIndex]["page"],
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 0,
-        iconSize: 20,
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          // splashColor: Colors.transparent,
+          // highlightColor: Colors.transparent,
+          // splashFactory: NoSplash.splashFactory,
+        ),
+        child: BottomNavigationBar(
+          elevation: 0,
+          iconSize: 20,
 
-        /// backgroundColor: lightGreen,
-        unselectedItemColor: hintTextColor,
-        selectedItemColor: lightGreen,
-        type: BottomNavigationBarType.fixed,
-        onTap: _selectPage,
-        currentIndex: _selectedPageIndex,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.house),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.listCheck),
-            label: "Orders",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.commentDots),
-            label: "Chat",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.user),
-            label: "Profile",
-          ),
-        ],
+          /// backgroundColor: lightPurple,
+          unselectedItemColor: hintTextColor,
+          selectedItemColor: lightPurple,
+          type: BottomNavigationBarType.fixed,
+          onTap: _selectPage,
+          currentIndex: _selectedPageIndex,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.house),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.listCheck),
+              label: "Orders",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.commentDots),
+              label: "Chat",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.user),
+              label: "Profile",
+            ),
+          ],
+        ),
       ),
     );
   }

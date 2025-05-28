@@ -37,7 +37,7 @@ class _InnitialScreenState extends State<InnitialScreen> {
     return displaySplashScreen
         ? SplashScreen()
         : Scaffold(
-          // backgroundColor: darkGreen,
+          // backgroundColor: darkPurple,
           resizeToAvoidBottomInset: false,
           body: Stack(
             children: [
@@ -159,12 +159,12 @@ class _InnitialScreenState extends State<InnitialScreen> {
                                       ),
                                     )
                                     : const SpinKitThreeBounce(
-                                      color: lightGreen,
+                                      color: lightPurple,
                                       size: 34.0,
                                     ),
 
                             // : const CircularProgressIndicator(
-                            //   color: darkGreen,
+                            //   color: darkPurple,
                             // ),
                           ),
                         ),

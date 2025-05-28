@@ -1,42 +1,76 @@
 import 'package:flutter/material.dart';
 
 class ColorPalette {
-  // Brand Green
+  // Brand Purple
+  static const Color primaryVariant = Color(0xFF3B1B94);
+  static const Color buttonPrimary = Color(0xFF9C81F6);
+  static const Color backgroundColor = Color(0xFFFFFFFF);
+  static const Color scaffoldBackground = Color(0xFFF2EFFF);
+  static const Color amber = Color(0xFFF57C00);
   static const Color primaryColor = Color(0xFF88ED8B);
-  static const Color primaryVariant = Color(0xFF1B5E20); // Darker Forest Green
 
   // Core neutrals (keep the same)
-  static const Color backgroundColor = Color(0xFFFFFFFF);
-  static const Color scaffoldBackground = Color(0xFFF5F5F5);
-  static const Color cardColor = Color(0xFFFFFFFF);
-  static const Color borderColor = Color(0xFFE0E0E0);
 
   // Text & icons
-  static const Color textPrimary = Color(0xFF000000);
-  static const Color textSecondary = Color(0xFF666666);
-  static const Color hintText = Color(0xFF9E9E9E);
-  static const Color iconActive = Color(0xFF000000);
   static const Color textColor = Color(0xFFFFFFFF);
-  static const Color amber = Color(0xFFF57C00);
-  // static const Color amber = Colors.amber;
+  static const Color hintText = Color(0xFF9E9E9E);
+  static const Color textPrimary = Color(0xFF000000);
 
   // Feedback
-  static const Color successColor = Color(0xFF2E7D32);
   static const Color errorColor = Color(0xFFB00020);
 
   // Example button fills
-  static const Color buttonPrimary = Color(0xFF4CAF50);
-  static const Color buttonSecondary = Color(0xFFFFFFFF);
 }
 
-const Color hintTextColor = ColorPalette.hintText;
-const Color darkText = ColorPalette.textPrimary;
-const Color whiteText = ColorPalette.textColor;
-const Color darkGreen = ColorPalette.primaryVariant;
-const Color lightGreen = ColorPalette.buttonPrimary;
-const Color primaryColor = ColorPalette.primaryColor;
-const Color backgroundColor = ColorPalette.backgroundColor;
-const Color amber = ColorPalette.amber;
+const Color darkPurple = ColorPalette.primaryVariant;
+const Color lightPurple = ColorPalette.buttonPrimary;
 const Color scaffoldBackground = ColorPalette.scaffoldBackground;
+const Color backgroundColor = ColorPalette.backgroundColor;
+const Color whiteText = ColorPalette.textColor;
+const Color darkText = ColorPalette.textPrimary;
+const Color hintTextColor = ColorPalette.hintText;
 const Color lighHintText = Color.fromARGB(255, 213, 210, 210);
+const Color primaryColor = ColorPalette.primaryColor;
+const Color amber = ColorPalette.amber;
 const Color errorColor = ColorPalette.errorColor;
+
+
+
+
+
+//  cardColor 
+//  borderColor 
+//  textSecondary 
+//  iconActive 
+//  successColor 
+//  buttonSecondary 
+// class ColorPalette {
+//   // Brand Purple
+//   static const Color primaryColor = Color(0xFF88ED8B);
+//   static const Color primaryVariant = Color(0xFF1B5E20); // Darker Forest Purple
+
+//   // Core neutrals (keep the same)
+//   static const Color backgroundColor = Color(0xFFFFFFFF);
+//   static const Color scaffoldBackground = Color(0xFFF2EFFF);
+//   // static const Color scaffoldBackground = Color(0xFFF5F5F5);
+//   static const Color cardColor = Color(0xFFFFFFFF);
+//   static const Color borderColor = Color(0xFFE0E0E0);
+
+//   // Text & icons
+//   static const Color textPrimary = Color(0xFF000000);
+//   static const Color textSecondary = Color(0xFF666666);
+//   static const Color hintText = Color(0xFF9E9E9E);
+//   static const Color iconActive = Color(0xFF000000);
+//   static const Color textColor = Color(0xFFFFFFFF);
+//   static const Color amber = Color(0xFFF57C00);
+//   // static const Color amber = Colors.amber;
+
+//   // Feedback
+//   static const Color successColor = Color(0xFF2E7D32);
+//   static const Color errorColor = Color(0xFFB00020);
+
+//   // Example button fills
+//   static const Color buttonPrimary = Color(0xFF3B1B94);
+//   // static const Color buttonPrimary = Color(0xFF4CAF50);
+//   static const Color buttonSecondary = Color(0xFFFFFFFF);
+// }

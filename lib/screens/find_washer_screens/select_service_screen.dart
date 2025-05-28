@@ -75,7 +75,7 @@ class _SelectServiceScreenState extends State<SelectServiceScreen> {
               ),
               OmeeoButton(
                 backgroundColor:
-                    selectedService.isEmpty ? hintTextColor : lightGreen,
+                    selectedService.isEmpty ? hintTextColor : lightPurple,
                 text: "Continue",
                 onPressed:
                     selectedService.isEmpty
@@ -120,7 +120,7 @@ class ValetServiceTile extends StatelessWidget {
       onTap: onSelect,
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected ? lightGreen : backgroundColor,
+          color: isSelected ? lightPurple : backgroundColor,
           borderRadius: BorderRadius.circular(16),
         ),
         padding: const EdgeInsets.all(12),
@@ -166,10 +166,7 @@ class ValetServiceTile extends StatelessWidget {
               onTap: () {
                 showServiceDeatals(context, title, description);
               },
-              child: Icon(
-                Icons.help_outline,
-                color: isSelected ? whiteText : hintTextColor,
-              ),
+              child: SeeDetailButton(),
             ),
           ],
         ),

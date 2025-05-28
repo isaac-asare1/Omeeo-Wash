@@ -80,15 +80,17 @@ class OmeeoButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? textColor;
   final VoidCallback? onPressed;
+  final double? fontSize;
 
   const OmeeoButton({
     super.key,
-    this.text = "text",
+    this.text = "Continue",
     this.backgroundColor,
     this.textColor,
     this.onPressed,
     this.child,
     this.allowBorder = false,
+    this.fontSize,
   });
 
   @override
@@ -99,6 +101,7 @@ class OmeeoButton extends StatelessWidget {
               ? BoxDecoration(
                 border: Border.all(color: hintTextColor, width: 2),
                 borderRadius: BorderRadius.all(Radius.circular(8)),
+                color: backgroundColor ?? null,
               )
               : null,
       constraints: const BoxConstraints(maxWidth: 400),
@@ -107,8 +110,8 @@ class OmeeoButton extends StatelessWidget {
         height: 50,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: backgroundColor ?? lightGreen,
-            foregroundColor: textColor ?? ColorPalette.textColor,
+            backgroundColor: backgroundColor ?? lightPurple,
+            foregroundColor: textColor ?? whiteText,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
@@ -119,9 +122,9 @@ class OmeeoButton extends StatelessWidget {
               child ??
               Text(
                 text!,
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: fontSize ?? 18,
                 ),
               ),
         ),

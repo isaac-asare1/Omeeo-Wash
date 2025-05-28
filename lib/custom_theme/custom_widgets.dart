@@ -53,7 +53,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-// ✅ Custom TextField
+class SeeDetailButton extends StatelessWidget {
+  const SeeDetailButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 25,
+      height: 25,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(color: hintTextColor, shape: BoxShape.circle),
+      child: Icon(Icons.help, color: whiteText, size: 29),
+    );
+  }
+}
+
+// Custom TextField
 class CustomTextField extends StatefulWidget {
   final TextInputType? textInputType;
   final String label;
@@ -255,7 +270,8 @@ class _CustomToggleQuestionState extends State<CustomToggleQuestion> {
                 child: OmeeoButton(
                   text: 'Yes',
                   onPressed: () => setState(() => isYes = true),
-                  backgroundColor: isYes == true ? lightGreen : backgroundColor,
+                  backgroundColor:
+                      isYes == true ? lightPurple : backgroundColor,
                   textColor: isYes == true ? whiteText : hintTextColor,
                 ),
               ),
@@ -265,7 +281,7 @@ class _CustomToggleQuestionState extends State<CustomToggleQuestion> {
                   text: 'No',
                   onPressed: () => setState(() => isYes = false),
                   backgroundColor:
-                      isYes == false ? lightGreen : backgroundColor,
+                      isYes == false ? lightPurple : backgroundColor,
                   textColor: isYes == false ? whiteText : hintTextColor,
                 ),
               ),
@@ -471,7 +487,7 @@ class _CheckCircleState extends State<CheckCircle> {
           child: Icon(
             weight: 1000,
             FontAwesomeIcons.check,
-            color: isChecked ? lightGreen : Colors.white,
+            color: isChecked ? lightPurple : Colors.white,
             size: 20,
           ),
         ),
@@ -542,7 +558,7 @@ class _LocationDropdownState extends State<LocationDropdown> {
                   selectedLocation!.length < 1
                       ? myLocations[0]
                       : selectedLocation,
-              dropdownColor: const Color.fromARGB(220, 0, 0, 0),
+              dropdownColor: lightPurple,
               icon: Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Icon(

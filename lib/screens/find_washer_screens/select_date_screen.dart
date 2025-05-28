@@ -92,7 +92,7 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
               //   ),
               // ),
               OmeeoButton(
-                backgroundColor: lightGreen,
+                backgroundColor: lightPurple,
                 text: "Continue",
                 onPressed: () {
                   context.push(routePath);

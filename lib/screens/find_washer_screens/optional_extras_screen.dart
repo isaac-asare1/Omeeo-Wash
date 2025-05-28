@@ -91,7 +91,7 @@ class _OptionalExtrasScreenState extends State<OptionalExtrasScreen> {
                     backgroundColor:
                         selectedExtrasTitle.isEmpty
                             ? hintTextColor
-                            : lightGreen,
+                            : lightPurple,
                     text: "Continue",
                     onPressed:
                         selectedExtrasTitle.isEmpty
@@ -141,7 +141,7 @@ class OptionalExtrasTile extends StatelessWidget {
       onTap: onSelect,
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected ? lightGreen : backgroundColor,
+          color: isSelected ? lightPurple : backgroundColor,
           borderRadius: BorderRadius.circular(16),
         ),
         padding: const EdgeInsets.all(12),
@@ -176,10 +176,7 @@ class OptionalExtrasTile extends StatelessWidget {
               onTap: () {
                 showExtraOptionsDeatals(context, title, description);
               },
-              child: Icon(
-                Icons.help_outline,
-                color: isSelected ? whiteText : hintTextColor,
-              ),
+              child: SeeDetailButton(),
             ),
           ],
         ),

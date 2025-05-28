@@ -60,10 +60,10 @@ class _OtpFormScreenState extends State<OtpFormScreen> {
                 ),
                 SizedBox(height: 30),
                 OmeeoButton(
-                  backgroundColor: verifyPin ? lightGreen : hintTextColor,
+                  backgroundColor: verifyPin ? lightPurple : hintTextColor,
                   text: "Continue",
                   onPressed: () {
-                    GoRouter.of(context).go('/core');
+                    GoRouter.of(context).push('/core');
                   },
                 ),
                 SizedBox(height: 10),
@@ -108,7 +108,7 @@ class PinPutForm extends StatelessWidget {
       defaultPinTheme: defaultTheme,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       focusedPinTheme: defaultTheme.copyBorderWith(
-        border: Border.all(color: lightGreen, width: 2),
+        border: Border.all(color: lightPurple, width: 2),
       ),
       errorPinTheme: defaultTheme.copyBorderWith(
         border: Border.all(color: errorColor, width: 2),

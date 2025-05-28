@@ -41,7 +41,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                   constraints: BoxConstraints(maxWidth: 500),
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: lightGreen,
+                    color: lightPurple,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: const Column(
@@ -168,6 +168,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                   OmeeoButton(
                     text: "Sign Up",
                     onPressed: () {
+                      Navigator.of(context).pop();
                       context.push(routePath);
                     },
                   ),

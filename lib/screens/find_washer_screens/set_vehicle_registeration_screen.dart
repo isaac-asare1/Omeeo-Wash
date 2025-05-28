@@ -11,7 +11,7 @@ import '../../custom_theme/color_palette.dart'
         backgroundColor,
         darkText,
         hintTextColor,
-        lightGreen,
+        lightPurple,
         scaffoldBackground,
         whiteText;
 
@@ -100,7 +100,7 @@ class _VehicleRegistrationScreenState extends State<VehicleRegistrationScreen> {
                         borderRadius: BorderRadius.circular(12),
                         child: Container(
                           decoration: const BoxDecoration(
-                            color: lightGreen,
+                            color: lightPurple,
                             borderRadius: BorderRadius.all(Radius.circular(12)),
                           ),
                           padding: const EdgeInsets.all(12),
@@ -197,7 +197,7 @@ class _VehicleRegistrationScreenState extends State<VehicleRegistrationScreen> {
                   backgroundColor:
                       _controller.text.trim().isEmpty
                           ? hintTextColor
-                          : lightGreen,
+                          : lightPurple,
                   text: "Continue",
                   onPressed: () {
                     context.push('/set_location/set_vehicle_reg/service_type');
@@ -319,7 +319,7 @@ class VehicleDetailsTile extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: canContinue ? lightGreen : backgroundColor,
+          color: canContinue ? lightPurple : backgroundColor,
           borderRadius: BorderRadius.circular(16),
         ),
         padding: const EdgeInsets.all(10),
