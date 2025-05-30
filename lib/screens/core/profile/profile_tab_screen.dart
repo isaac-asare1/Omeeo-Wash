@@ -3,12 +3,49 @@ import 'package:go_router/go_router.dart';
 import 'package:ommeoWash/custom_theme/color_palette.dart';
 import 'package:ommeoWash/custom_theme/custom_widgets.dart';
 import 'package:ommeoWash/custom_theme/font_size.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ProfileTabScreen extends StatelessWidget {
   const ProfileTabScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // SnackBar getResultSnackBar(ShareResult result) {
+    //   return SnackBar(
+    //     content: Column(
+    //       mainAxisSize: MainAxisSize.min,
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       children: [
+    //         Text("Share result: ${result.status}"),
+    //         if (result.status == ShareResultStatus.success)
+    //           Text("Shared to: ${result.raw}"),
+    //       ],
+    //     ),
+    //   );
+    // }
+
+    void shareApp(BuildContext context) async {
+      // final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+      try {
+        await SharePlus.instance.share(
+          ShareParams(
+            text:
+                'Check out this video: https://youtube.com/shorts/gH4SsABvqP0?si=17vJHZJSJyGMNZMg',
+            subject: 'Awesome YouTube Video',
+            title: 'Share Video',
+          ),
+        );
+
+        // scaffoldMessenger.showSnackBar(
+        //   SnackBar(content: Text('Result: ${shareResult.status.name}')),
+        // );
+      } catch (e) {
+        // scaffoldMessenger.showSnackBar(SnackBar(content: Text('Error: $e')));
+        debugPrint("ERROR: ${e}");
+      }
+    }
+
     return Scaffold(
       body: Column(
         children: [
@@ -26,7 +63,9 @@ class ProfileTabScreen extends StatelessWidget {
                   ],
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.push('/core/help');
+                  },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: darkText,
                     backgroundColor: backgroundColor,
@@ -94,6 +133,9 @@ class ProfileTabScreen extends StatelessWidget {
                     context: context,
                     icon: Icons.share,
                     title: 'Share App',
+                    callBack: () {
+                      shareApp(context);
+                    },
                   ),
                   divider(),
                   _buildListTile(

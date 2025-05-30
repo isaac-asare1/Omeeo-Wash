@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ommeoWash/custom_theme/color_palette.dart';
 import 'package:ommeoWash/custom_theme/custom_widgets.dart';
+import 'package:ommeoWash/custom_theme/font_size.dart';
 import 'package:ommeoWash/helpers/dummy_list.dart';
 
 class HelpCenter extends StatefulWidget {
@@ -11,6 +13,18 @@ class HelpCenter extends StatefulWidget {
 
 class _HelpCenterState extends State<HelpCenter> {
   int? expandedIndex;
+  List<int> expandedIndexes = [];
+  void addOrReplace(int index) {
+    if (expandedIndexes.contains(index)) {
+      setState(() {
+        expandedIndexes.remove(index);
+      });
+    } else {
+      setState(() {
+        expandedIndexes.add(index);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +49,9 @@ class _HelpCenterState extends State<HelpCenter> {
                   ),
                   const SizedBox(height: 20),
                   ...List.generate(faqs.length, (index) {
-                    final isExpanded = index == expandedIndex;
+                    // final isExpanded = index == expandedIndex;
+                    final isExpanded = expandedIndexes.contains(index);
+
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -53,9 +69,10 @@ class _HelpCenterState extends State<HelpCenter> {
                             color: isExpanded ? amber : Colors.black,
                           ),
                           onTap: () {
-                            setState(() {
-                              expandedIndex = isExpanded ? null : index;
-                            });
+                            // setState(() {
+                            //   expandedIndex = isExpanded ? null : index;
+                            // });
+                            addOrReplace(index);
                           },
                         ),
                         if (isExpanded)
@@ -111,34 +128,33 @@ class Footer extends StatelessWidget {
             spacing: 16,
             runSpacing: 16,
             children: [
-              Icon(Icons.facebook, color: whiteText),
-              Icon(Icons.camera_alt, color: whiteText),
-              Icon(Icons.music_note, color: whiteText),
-              Icon(Icons.play_circle_filled, color: whiteText),
+              Icon(FontAwesomeIcons.youtube, color: lighHintText),
+              Icon(FontAwesomeIcons.instagram, color: lighHintText),
+              Icon(FontAwesomeIcons.tiktok, color: lighHintText),
+              Icon(FontAwesomeIcons.facebook, color: lighHintText),
+              Icon(FontAwesomeIcons.linkedin, color: lighHintText),
             ],
           ),
           const SizedBox(height: 16),
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 16,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset(
-                'assets/images/omeeo_logo.png',
-                height: 50,
-              ), // Replace with your asset
-              Image.asset(
-                'assets/images/omeeo_logo.png',
-                height: 50,
-              ), // Replace with your asset
+              PlatFormBadge(
+                title: 'Apple Store',
+                logoPath: 'assets/images/apple_logo.png',
+                color: whiteText,
+              ),
+              SizedBox(width: 10),
+              PlatFormBadge(
+                title: 'Google Play',
+                logoPath: 'assets/images/playstore_logo.png',
+              ),
             ],
           ),
           const SizedBox(height: 16),
           const Text(
             'Excellent  4.8 out of 5  ',
-            style: TextStyle(fontSize: 16, color: darkText),
-          ),
-          const Text(
-            '⭐ Trustpilot',
             style: TextStyle(fontSize: 16, color: darkText),
           ),
           const SizedBox(height: 12),
@@ -156,7 +172,58 @@ class Footer extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(color: darkText, fontSize: 12),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 20),
+        ],
+      ),
+    );
+  }
+}
+
+class PlatFormBadge extends StatelessWidget {
+  final String title, logoPath;
+  final double? logoHeight;
+  final double? logoWidth;
+  final Color? color;
+
+  const PlatFormBadge({
+    super.key,
+    required this.title,
+    this.logoHeight,
+    this.logoWidth,
+    required this.logoPath,
+    this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 170,
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.white24),
+      ),
+      padding: const EdgeInsets.all(4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Image.asset(
+            logoPath,
+            height: 40,
+            color: color,
+            //fit: BoxFit.contain,
+          ),
+          Column(
+            children: [
+              CustomText(
+                color == whiteText ? 'Download on the' : "GET IT ON",
+                color: whiteText,
+                fontSize: FontSizes.xs,
+                fontWeight: FontWeight.w500,
+              ),
+              CustomText(title, fontSize: FontSizes.ml, color: whiteText),
+            ],
+          ),
         ],
       ),
     );
