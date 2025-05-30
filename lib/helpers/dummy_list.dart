@@ -346,6 +346,56 @@ final List<Map<String, dynamic>> topWashers = [
   },
 ];
 
+final List<Map<String, String>> faqs = [
+  {
+    "question": "What are your prices?",
+    "answer":
+        "Because we are a marketplace of mobile car valeters and detailers, we don’t set the prices.",
+  },
+  {
+    "question": "Do I need to provide parking?",
+    "answer":
+        "Some washers may require parking access depending on the location.",
+  },
+  {
+    "question": "Do I have to provide water?",
+    "answer":
+        "Most washers provide their own water, but check with your washer via chat to confirm.",
+  },
+  {
+    "question": "Do I have to provide electricity?",
+    "answer":
+        "Typically, washers bring their own power sources, but always confirm.",
+  },
+  {
+    "question": "Can I Pay After The Booking Is Completed?",
+    "answer": "No, payment is made during the booking process in-app.",
+  },
+  {
+    "question": "How can I stay updated on my order?",
+    "answer":
+        "You can use the in-app notifications and chat feature for updates.",
+  },
+  {
+    "question": "How far in advance can I book?",
+    "answer": "Bookings can be made up to 30 days in advance.",
+  },
+  {
+    "question": "How do I create a dispute with my washer?",
+    "answer":
+        "Use the 'Dispute' button on your order page to initiate a claim.",
+  },
+  {
+    "question": "How do I cancel a booking?",
+    "answer":
+        "Go to 'My Bookings' and select 'Cancel' for the specific appointment.",
+  },
+  {
+    "question": "How do I delete my account?",
+    "answer": "Contact support via the app or website to delete your account.",
+  },
+];
+
 
 
 // const List<String> mouldRemovalFeatures = [

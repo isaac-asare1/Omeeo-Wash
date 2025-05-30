@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ommeoWash/custom_theme/color_palette.dart';
 import 'package:ommeoWash/custom_theme/custom_widgets.dart';
 import 'package:ommeoWash/custom_theme/font_size.dart';
@@ -55,13 +56,7 @@ class ProfileTabScreen extends StatelessWidget {
                     icon: Icons.edit,
                     title: 'Edit Profile',
                     firstChild: true,
-                  ),
-                  divider(),
-                  _buildListTile(
-                    context: context,
-                    icon: Icons.directions_car,
-                    title: 'My Vehicles',
-                    trailingText: '1 Vehicle',
+                    route: "edit_profile",
                   ),
                   divider(),
                   _buildListTile(
@@ -69,6 +64,7 @@ class ProfileTabScreen extends StatelessWidget {
                     icon: Icons.location_on,
                     title: 'My Locations',
                     trailingText: '2 Addresses',
+                    route: "locations",
                   ),
                   divider(),
                   _buildListTile(
@@ -76,6 +72,7 @@ class ProfileTabScreen extends StatelessWidget {
                     icon: Icons.subscriptions,
                     title: 'My Subscriptions',
                     lastChild: true,
+                    route: "subscription",
                   ),
                   //OmeeoWash section
                   SizedBox(height: 20),
@@ -90,6 +87,7 @@ class ProfileTabScreen extends StatelessWidget {
                     icon: Icons.help_outline,
                     title: 'Help Center',
                     firstChild: true,
+                    route: "help",
                   ),
                   divider(),
                   _buildListTile(
@@ -138,6 +136,7 @@ class ProfileTabScreen extends StatelessWidget {
                     title: 'Delete Account',
                     lastChild: true,
                   ),
+                  SizedBox(height: 10),
                 ],
               ),
             ),
@@ -151,6 +150,8 @@ class ProfileTabScreen extends StatelessWidget {
     required BuildContext context,
     required IconData icon,
     required String title,
+    String? route,
+    VoidCallback? callBack,
     String? trailingText,
     bool firstChild = false,
     bool lastChild = false,
@@ -172,7 +173,10 @@ class ProfileTabScreen extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: TextStyle(color: icon == Icons.delete ? errorColor : darkText),
+          style: TextStyle(
+            color: icon == Icons.delete ? errorColor : darkText,
+            fontSize: FontSizes.md,
+          ),
         ),
         trailing:
             trailingText != null
@@ -191,7 +195,7 @@ class ProfileTabScreen extends StatelessWidget {
                         child: Text(
                           trailingText,
                           style: const TextStyle(
-                            fontSize: FontSizes.sm,
+                            fontSize: FontSizes.md,
                             fontWeight: FontWeight.bold,
                             color: scaffoldBackground,
                           ),
@@ -201,13 +205,19 @@ class ProfileTabScreen extends StatelessWidget {
                       const Icon(
                         Icons.arrow_forward_ios,
                         size: 16,
-                        color: scaffoldBackground,
+                        color: darkText,
                       ),
                     ],
                   ),
                 )
                 : const Icon(Icons.arrow_forward_ios, size: 16),
-        onTap: () {},
+        onTap: () {
+          route != null
+              ? context.push('/core/${route}')
+              : callBack != null
+              ? callBack()
+              : null;
+        },
       ),
     );
   }

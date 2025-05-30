@@ -3,6 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:ommeoWash/routing/routes.dart';
 import 'package:ommeoWash/screens/auth_screens/forgot_password_screen.dart';
 import 'package:ommeoWash/screens/core/core.dart';
+import 'package:ommeoWash/screens/core/profile/edit_profile.dart';
+import 'package:ommeoWash/screens/core/profile/help_center.dart';
+import 'package:ommeoWash/screens/core/profile/locations.dart';
+import 'package:ommeoWash/screens/core/profile/subscriptions.dart';
 import 'package:ommeoWash/screens/find_washer_screens/order_summary_screen.dart';
 import 'package:ommeoWash/screens/find_washer_screens/otp_form_screen.dart';
 import 'package:ommeoWash/screens/find_washer_screens/select_cleaner.dart';
@@ -123,6 +127,19 @@ final GoRouter router = GoRouter(
         ...serviceFlowRoutes,
         ...extraServicesFlowRoutes,
         ...serviceFlowRouteAfterChoosingWahser,
+        GoRoute(
+          path: 'edit_profile',
+          builder: (context, state) => const EditProfile(),
+        ),
+        GoRoute(
+          path: 'subscription',
+          builder: (context, state) => const Subscriptions(),
+        ),
+        GoRoute(
+          path: 'locations',
+          builder: (context, state) => const Locations(),
+        ),
+        GoRoute(path: 'help', builder: (context, state) => const HelpCenter()),
       ],
     ),
   ],

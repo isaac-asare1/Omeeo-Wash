@@ -101,18 +101,20 @@ class _SelectCleanerState extends State<SelectCleaner> {
               ),
 
               const SizedBox(height: 20),
-
               OmeeoButton(
                 backgroundColor:
                     selectedCleaner.trim().isEmpty
                         ? hintTextColor
                         : lightPurple,
                 text: "Continue",
-                onPressed: () {
-                  if (selectedCleaner.isNotEmpty) {
-                    context.push(widget.path);
-                  }
-                },
+                onPressed:
+                    selectedCleaner.trim().isEmpty
+                        ? null
+                        : () {
+                          if (selectedCleaner.isNotEmpty) {
+                            context.push(widget.path);
+                          }
+                        },
               ),
             ],
           ),

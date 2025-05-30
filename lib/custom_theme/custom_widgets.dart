@@ -70,10 +70,12 @@ class SeeDetailButton extends StatelessWidget {
 
 // Custom TextField
 class CustomTextField extends StatefulWidget {
+  final bool allowBorder;
   final TextInputType? textInputType;
   final String label;
   final String hintText;
   final bool obscureText;
+  final TextEditingController? controller;
 
   const CustomTextField({
     super.key,
@@ -81,6 +83,8 @@ class CustomTextField extends StatefulWidget {
     required this.hintText,
     this.obscureText = false,
     this.textInputType,
+    this.controller,
+    this.allowBorder = true,
   });
 
   @override
@@ -113,8 +117,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           const SizedBox(height: 8),
           TextField(
+            controller: widget.controller,
             keyboardType: widget.textInputType,
             obscureText: obscure,
+            style: TextStyle(
+              decoration: TextDecoration.none,
+              decorationStyle: TextDecorationStyle.solid,
+              decorationColor: Colors.white,
+              decorationThickness: 0,
+            ),
             decoration: InputDecoration(
               suffixIcon:
                   widget.obscureText
